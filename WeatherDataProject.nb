@@ -1,0 +1,2925 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[    126552,       2917]
+NotebookOptionsPosition[    117764,       2778]
+NotebookOutlinePosition[    118186,       2795]
+CellTagsIndexPosition[    118143,       2792]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Weather Data Retrieval", "Title",
+ CellChangeTimes->{{3.935578297975453*^9, 3.93557831745928*^9}, {
+  3.936095662616898*^9, 3.9360956655516453`*^9}, {3.936096072582205*^9, 
+  3.936096076273169*^9}, {3.936106569138871*^9, 3.936106570051919*^9}, {
+  3.9361071052273903`*^9, 3.936107108975856*^9}, {3.936107476376651*^9, 
+  3.936107483561468*^9}, {3.936118642502124*^9, 
+  3.936118646996364*^9}},ExpressionUUID->"8c77f513-d0ac-4dd8-b635-\
+4261c69eb8ce"],
+
+Cell[TextData[StyleBox["MATH 250 - Mathematical Computing\nOpeyemi Destiny \
+Julius",
+ FontSize->18]], "Subtitle",
+ CellChangeTimes->{{3.935579349479124*^9, 
+  3.935579371790052*^9}},ExpressionUUID->"1dedad2e-d259-4254-9ab2-\
+b10154d91939"],
+
+Cell[CellGroupData[{
+
+Cell["1.1 Objective", "Section",
+ CellChangeTimes->{{3.935579321868374*^9, 3.9355793232359533`*^9}, {
+  3.9355794940353737`*^9, 3.935579510325386*^9}, {3.9355806210273647`*^9, 
+  3.93558062651026*^9}, {3.936095673382229*^9, 3.936095673677227*^9}, {
+  3.936107521221538*^9, 3.936107525044695*^9}, {3.936111141623328*^9, 
+  3.936111142160812*^9}, {3.9361173344376373`*^9, 3.936117384410935*^9}, {
+  3.9361174151694*^9, 
+  3.93611741588761*^9}},ExpressionUUID->"4f69533c-6a1b-43dd-822d-\
+95838bbc6375"],
+
+Cell[TextData[StyleBox["The target audience for this tutorial are students \
+interested in the real-world applications of Mathematica programming. The \
+goal is to:",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.936116769260706*^9, 3.9361168513924503`*^9}, {
+  3.936117083395411*^9, 
+  3.936117084674273*^9}},ExpressionUUID->"e0c52b61-be23-48f9-87ee-\
+bcf1c8bd7cbf"],
+
+Cell[TextData[StyleBox["1. Learn various Mathematica commands to retrieve \
+weather data \n2. Learn how to visualize the data for easy interpretation\n3. \
+Learn what these different inputs / outputs can do or lack-thereof",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.935579518267696*^9, 3.935579662397394*^9}, {
+  3.936095680360424*^9, 3.9360956833977013`*^9}, {3.936096010183214*^9, 
+  3.936096061619693*^9}, {3.9360961138363047`*^9, 3.9360961577903967`*^9}, {
+  3.936096204871862*^9, 3.9360962685306253`*^9}, {3.936096380571406*^9, 
+  3.93609639122974*^9}, {3.936098504161458*^9, 3.9360985316973133`*^9}, {
+  3.936106575566581*^9, 3.9361066693441553`*^9}, {3.936106715003106*^9, 
+  3.9361067401947927`*^9}, {3.936106826405156*^9, 3.936106833227408*^9}, {
+  3.936107113994238*^9, 3.936107216375621*^9}, {3.9361165969327517`*^9, 
+  3.936116606046543*^9}, {3.9361167422108603`*^9, 3.936116755794455*^9}, {
+  3.936117095602338*^9, 3.93611710379834*^9}, {3.9361172548583*^9, 
+  3.936117290306972*^9}},ExpressionUUID->"3194f94f-b772-4248-8af9-\
+bd4d3f0f72e0"],
+
+Cell[TextData[StyleBox["Data retrieval and visualization can be useful for \
+Undergraduate or Graduate level research projects",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.936117122736219*^9, 
+  3.9361172444224567`*^9}},ExpressionUUID->"3a2f6a23-d9be-46c0-b742-\
+e7e115a43f5d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["1.2 WeatherData Command ", "Section",
+ CellChangeTimes->{{3.9355796842934103`*^9, 3.935579762208653*^9}, {
+   3.935580609920946*^9, 3.935580615916649*^9}, {3.936090383006522*^9, 
+   3.936090383408963*^9}, 3.936095629326515*^9, {3.936096004027672*^9, 
+   3.936096005059959*^9}, {3.9361174179127207`*^9, 
+   3.936117418139337*^9}},ExpressionUUID->"d2743d3e-5d4b-4551-91a3-\
+449514aa3155"],
+
+Cell[TextData[{
+ StyleBox["The ",
+  FontSize->16],
+ StyleBox["WeatherData",
+  FontSize->16,
+  FontWeight->"Bold"],
+ StyleBox[" command retrieves old and current weather measurements from \
+weather stations worldwide. It takes in up to 3 inputs for data \
+specification; location, weather property (i.e. \
+\[OpenCurlyDoubleQuote]Humidity\[CloseCurlyDoubleQuote]), and date range.\n\n\
+Date range is ",
+  FontSize->16],
+ StyleBox["optional",
+  FontSize->16,
+  FontVariations->{"Underline"->True}],
+ StyleBox[" as an input. ",
+  FontSize->16],
+ StyleBox["T",
+  FontSize->16],
+ StyleBox["o get precise measurements, you have to choose a location and a \
+weather property. To access the acceptable inputs for weather property, start \
+typing inside the brackets [ ] with a quotation \[OpenCurlyDoubleQuote] \
+\[CloseCurlyDoubleQuote] and scroll to select the property of the weather you \
+would like to retrieve. \n\nThe output will be given in standard units. In \
+the below example, Temperature will be given in degrees Celsius. \nRun this \
+command. ",
+  FontSize->16]
+}], "Text",
+ CellChangeTimes->{{3.935579828906604*^9, 3.935579968479828*^9}, {
+   3.9355801200293493`*^9, 3.935580132897366*^9}, {3.935580538580291*^9, 
+   3.935580544559782*^9}, {3.9360946181663933`*^9, 3.93609462859866*^9}, {
+   3.936095247443026*^9, 3.936095281037312*^9}, {3.936095571295494*^9, 
+   3.936095580293209*^9}, {3.93609664335857*^9, 3.936096645782386*^9}, {
+   3.936098637254261*^9, 3.9360987212931423`*^9}, {3.93610015817675*^9, 
+   3.9361002312893353`*^9}, {3.936101455675243*^9, 3.9361014599708242`*^9}, {
+   3.937506485742152*^9, 3.937506844568396*^9}, {3.937507193127466*^9, 
+   3.9375071948289223`*^9}, {3.937576162041531*^9, 3.937576173472324*^9}, 
+   3.9375768013703947`*^9, {3.93758289390119*^9, 3.937582897467122*^9}, {
+   3.937582952653451*^9, 
+   3.937583049356762*^9}},ExpressionUUID->"8f17a2d5-6d8c-4411-a3fd-\
+f868a62c8288"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"WeatherData", " ", "[", 
+  RowBox[{"\"\<New York City\>\"", ",", " ", "\"\<Temperature\>\""}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.935580191802082*^9, 3.935580247287477*^9}, {
+   3.9360946121879787`*^9, 3.936094613500903*^9}, {3.936094724392517*^9, 
+   3.9360947402174187`*^9}, {3.936094839271147*^9, 3.9360948418259687`*^9}, 
+   3.9360949005526657`*^9, {3.936095053201226*^9, 3.936095066954204*^9}, {
+   3.936095103135456*^9, 3.9360951047792397`*^9}, {3.9360952168982353`*^9, 
+   3.9360952176675463`*^9}, 3.9360969436547813`*^9, 3.936100235783111*^9, {
+   3.936101847025299*^9, 3.936101847505056*^9}, 3.936105368414637*^9, 
+   3.936108018898808*^9},
+ CellLabel->"In[50]:=",ExpressionUUID->"185f2733-9b2d-44c4-a8e9-46cd327c702b"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "16.1`", "\"\[Degree]C\"", "degrees Celsius", "\"DegreesCelsius\""},
+  "Quantity"]], "Output",
+ CellChangeTimes->{3.937583074609494*^9},
+ CellLabel->"Out[50]=",ExpressionUUID->"c59f3e59-e189-4016-a1b0-11c8ba7eb3b9"]
+}, Open  ]],
+
+Cell["\<\
+Because Date Range is optional, it assumes the current time as your date \
+range. Anytime a parameter is optional, there is usually something being \
+assumed or passed behind the scenes.\
+\>", "Text",
+ CellChangeTimes->{{3.9375830540032043`*^9, 
+  3.937583122899622*^9}},ExpressionUUID->"92db3625-e266-4eb7-9dc5-\
+e5b7f9a299ce"],
+
+Cell[TextData[{
+ "If you desire a different unit than shown, use ",
+ StyleBox["UnitConvert",
+  FontWeight->"Bold"],
+ ". It can take two inputs: quantity and new desired unit for the quantity. \n\
+To help Mathematica understand what unit you want to convert ",
+ StyleBox["from, ",
+  FontSlant->"Italic"],
+ "you can use the ",
+ StyleBox["Quantity",
+  FontWeight->"Bold"],
+ " command\n\n",
+ StyleBox["Quantity",
+  FontWeight->"Bold"],
+ " takes in the value, and its original units. This makes it easier to use \
+UnitConvert. We\[CloseCurlyQuote]ll use 18.3 as a test temperature in Celsius \
+to see how it works. \n",
+ StyleBox["Note",
+  FontVariations->{"Underline"->True}],
+ ": The values vs the properties. Properties are in quotations, whereas \
+values remain as they are. This is important in figuring out acceptable input \
+for the commands you are using."
+}], "Text",
+ CellChangeTimes->{{3.9375068716134777`*^9, 3.937507170097519*^9}, {
+   3.9375730359754667`*^9, 3.9375730457344637`*^9}, {3.937573078069063*^9, 
+   3.9375730879580584`*^9}, 3.937574338367036*^9, {3.9375831359813213`*^9, 
+   3.9375831431992702`*^9}, {3.9375831744323063`*^9, 
+   3.937583175738743*^9}},ExpressionUUID->"5535ebdc-6fb6-43a2-bbca-\
+9e8c27583de6"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"UnitConvert", " ", "[", 
+   RowBox[{
+    RowBox[{"Quantity", "[", 
+     RowBox[{"18.3", ",", " ", "\"\<Celsius\>\""}], "]"}], ",", " ", 
+    "\"\<Farenheit\>\""}], "]"}], " "}]], "Input",
+ CellChangeTimes->{{3.935580336853744*^9, 3.935580449490361*^9}, {
+   3.9355804897399817`*^9, 3.935580528736929*^9}, {3.936095155365629*^9, 
+   3.9360951872019453`*^9}, 3.936105366796041*^9, 3.936108020243672*^9, {
+   3.9375072081811867`*^9, 3.937507219846322*^9}},
+ CellLabel->"In[2]:=",ExpressionUUID->"61c208b5-0968-429c-b6a0-c83bf397e531"],
+
+Cell[TextData[{
+ StyleBox["Note:",
+  FontSize->14,
+  FontVariations->{"Underline"->True}],
+ StyleBox[" For ",
+  FontSize->14],
+ StyleBox["location,",
+  FontSize->14,
+  FontSlant->"Italic"],
+ StyleBox[" you can use cities like we did above, but you can also use \
+geographical coordinate points (i.e. Longitude and Latitude) and standard \
+weather stations. For such stations, its inputs should be given in a specific \
+format (see ",
+  FontSize->14],
+ StyleBox[ButtonBox["this",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["https://reference.wolfram.com/language/ref/WeatherData.html"], None},
+  
+  ButtonNote->"https://reference.wolfram.com/language/ref/WeatherData.html"],
+  FontSize->14],
+ StyleBox[" for more information).\n\nIf it\[CloseCurlyQuote]s hard to guess \
+the coordinate points, you can use the ",
+  FontSize->14],
+ StyleBox["LatitudeLongitude",
+  FontSize->14,
+  FontWeight->"Bold"],
+ StyleBox[" command. ",
+  FontSize->14]
+}], "Text",
+ CellChangeTimes->{{3.93609787770218*^9, 3.9360978912145443`*^9}, {
+  3.936097922960877*^9, 3.936097923383231*^9}, {3.936107335495434*^9, 
+  3.936107350322503*^9}, {3.937507240799274*^9, 3.93750729692992*^9}, {
+  3.937573144621513*^9, 3.937573260498715*^9}, {3.9375736151118402`*^9, 
+  3.9375736246281557`*^9}, {3.937573697975815*^9, 3.93757373370455*^9}, {
+  3.937573797962328*^9, 3.937573823977458*^9}, {3.937574216733676*^9, 
+  3.937574233420845*^9}, {3.937574313165135*^9, 3.937574334172716*^9}, {
+  3.937583201281008*^9, 
+  3.937583268908853*^9}},ExpressionUUID->"3bd6b21a-ac91-433d-a232-\
+8cf234f86962"],
+
+Cell[BoxData[
+ RowBox[{"LatitudeLongitude", "[", 
+  RowBox[{"Entity", "[", 
+   RowBox[{"\"\<Country\>\"", ",", " ", "\"\<UnitedStates\>\""}], "]"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.936097932625039*^9, 3.936097942409523*^9}, {
+   3.936097993484364*^9, 3.936098033489607*^9}, {3.936098159998993*^9, 
+   3.936098207870174*^9}, 3.936105363897234*^9, 3.936108022543799*^9},
+ CellLabel->"In[3]:=",ExpressionUUID->"10b3747b-7236-4c08-bec7-8dd8c4556c40"],
+
+Cell["\<\
+The general output of this command will be in the form of a list of two \
+values that together make up the specific geographical coordinate points. \
+This provides you precise location for the WeatherData command.\
+\>", "Text",
+ CellChangeTimes->{{3.937573272126877*^9, 3.937573314115843*^9}, {
+  3.937573345755413*^9, 3.937573382328545*^9}, {3.937573427130747*^9, 
+  3.937573471557001*^9}, {3.937573531977635*^9, 
+  3.9375735944262133`*^9}},ExpressionUUID->"16d5d8f0-9f01-45ad-80a1-\
+697540edde3c"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Example",
+ FontSize->24]], "Subsubsection",
+ CellChangeTimes->{{3.936098442784521*^9, 3.936098458505054*^9}, {
+   3.936099566725766*^9, 3.936099572318273*^9}, {3.936100246055532*^9, 
+   3.936100273889985*^9}, {3.936102654855487*^9, 3.936102656443945*^9}, 
+   3.9375747314487333`*^9, {3.937576131377645*^9, 3.9375761389624863`*^9}, 
+   3.937578054397297*^9},ExpressionUUID->"96a45cc5-0005-4792-8720-\
+1241d15f66c7"],
+
+Cell[TextData[{
+ StyleBox["Example",
+  FontSize->18,
+  FontWeight->"Bold"],
+ StyleBox[" ",
+  FontSize->16,
+  FontWeight->"Bold"],
+ StyleBox["Using the WeatherData command, we can retrieve a list of \
+temperatures in New York City from a week ago up to today and see the trends \
+over time. ",
+  FontSize->16]
+}], "Text",
+ CellChangeTimes->{{3.9360984103543243`*^9, 3.936098454185544*^9}, {
+   3.936098537885065*^9, 3.936098591525928*^9}, {3.936098792439329*^9, 
+   3.9360988596395197`*^9}, {3.9360995992779303`*^9, 3.936099623650434*^9}, {
+   3.936099654588665*^9, 3.9360996545894947`*^9}, {3.936099694263365*^9, 
+   3.936099702563593*^9}, {3.936099737138105*^9, 3.9360997409697533`*^9}, {
+   3.9360998424135437`*^9, 3.936099864506152*^9}, {3.9361074154927*^9, 
+   3.9361074266802*^9}, {3.93610755885192*^9, 3.936107585682723*^9}, {
+   3.936107783365769*^9, 3.936107786868333*^9}, {3.936107950218872*^9, 
+   3.936107950577303*^9}, {3.937507357446581*^9, 3.937507358169038*^9}, {
+   3.9375743698417892`*^9, 3.937574372317004*^9}, 3.9375744165816507`*^9, {
+   3.9375744865179768`*^9, 3.9375744978883*^9}, {3.9375747276906548`*^9, 
+   3.937574727792704*^9}, {3.937576084120967*^9, 3.937576089592255*^9}, {
+   3.937576189701882*^9, 3.937576209905273*^9}, {3.937583300778234*^9, 
+   3.937583308567328*^9}},ExpressionUUID->"4f22f574-68c4-4bd6-a928-\
+661cfbe0f954"],
+
+Cell["\<\
+Before running the below command, ask yourself what the output could look \
+like. Is the output correct? What message is shown?\
+\>", "Text",
+ CellChangeTimes->{{3.937574654884089*^9, 3.9375747205063887`*^9}, {
+   3.937574790176134*^9, 3.9375747928407297`*^9}, 3.937576095212281*^9, {
+   3.93757623245501*^9, 3.93757626736159*^9}, {3.937576361975094*^9, 
+   3.9375763674767017`*^9}, {3.937583328355987*^9, 3.937583335284781*^9}, {
+   3.937583371472433*^9, 
+   3.9375833759177523`*^9}},ExpressionUUID->"9822574d-2ef0-4696-a476-\
+c4c8d774d974"],
+
+Cell[BoxData[
+ RowBox[{"WeatherData", " ", "[", 
+  RowBox[{
+  "\"\<New York City\>\"", ",", " ", "\"\<MeanTemperature\>\"", ",", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"2024", ",", " ", "9", ",", " ", "17"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"2024", ",", " ", "9", ",", " ", "24"}], "}"}], ",", " ", 
+     "\"\<Day\>\""}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.936098871278178*^9, 3.936099042290875*^9}, {
+   3.936099117697901*^9, 3.936099125974143*^9}, 3.936099177827211*^9, {
+   3.936099792396533*^9, 3.936099795174465*^9}, {3.936099868373247*^9, 
+   3.936099868868332*^9}, {3.9361017274164343`*^9, 3.93610173523413*^9}, {
+   3.9361018295918427`*^9, 3.9361018300110493`*^9}, {3.93610191675994*^9, 
+   3.936101917885257*^9}, 3.936105360481471*^9, 3.93610801301151*^9},
+ CellLabel->"In[51]:=",ExpressionUUID->"8bfe6109-a64b-4f11-8b5d-044402282be6"],
+
+Cell[TextData[{
+ StyleBox["When it comes to data outputs, it can look differently to humans \
+than to computers. The computer is saying \[OpenCurlyDoubleQuote]Job done\
+\[CloseCurlyDoubleQuote] but you might be thinking \
+\[OpenCurlyDoubleQuote]what does this mean?\[CloseCurlyDoubleQuote]\n\nSo, \
+let\[CloseCurlyQuote]s introduce",
+  FontSize->16],
+ StyleBox[" an easy way to visualize the data on a graph -- the ",
+  FontSize->16],
+ StyleBox["DateListPlot ",
+  FontSize->16],
+ StyleBox["command. \n\n",
+  FontSize->16],
+ StyleBox["TRY",
+  FontSize->16,
+  FontWeight->"Bold"],
+ StyleBox[" Take a time series, in this case its the output of the above \
+command, and use it as input for the DateListPlot command and hit run. You \
+should get this picture:",
+  FontSize->16]
+}], "Text",
+ CellChangeTimes->{{3.936099314597864*^9, 3.9360993547029123`*^9}, {
+   3.9360995939585733`*^9, 3.9360995944296093`*^9}, {3.936099666822484*^9, 
+   3.936099679627822*^9}, {3.9361078325340033`*^9, 3.936107918662922*^9}, {
+   3.937507362046194*^9, 3.93750736536112*^9}, 3.937574419341526*^9, {
+   3.9375744628639183`*^9, 3.93757446332197*^9}, {3.937574726024852*^9, 
+   3.937574726164032*^9}, {3.9375758367450953`*^9, 3.9375759404420652`*^9}, {
+   3.937575971583377*^9, 3.937575996296679*^9}, {3.937576281457582*^9, 
+   3.9375763554718122`*^9}, {3.937576407718974*^9, 3.9375766365843487`*^9}, {
+   3.9375833828791943`*^9, 3.937583461399687*^9}, 
+   3.937583721919405*^9},ExpressionUUID->"303c0220-9322-467e-8cb9-\
+9620bad5323b"],
+
+Cell[BoxData[
+ GraphicsBox[{{}, 
+   InterpretationBox[{
+     TagBox[{{}, {}, 
+       TagBox[
+        {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+         0.012833333333333334`], AbsoluteThickness[2], 
+         LineBox[{{3.93552*^9, 21.44}, {3.9356064*^9, 20.39}, {3.9356928*^9, 
+          21.61}, {3.9357792*^9, 23.22}, {3.9358656*^9, 19.78}, {3.935952*^9, 
+          18.44}, {3.9360384*^9, 17.5}, {3.9361248*^9, 17.11}}]},
+        Annotation[#, "Charting`Private`Tag#1"]& ]},
+      {"WolframDynamicHighlight", <|
+       "Label" -> {"XYLabel"}, "Ball" -> {"InterpolatedBall"}|>}], 
+     StyleBox[
+      DynamicBox[(Charting`HighlightActionBox["DynamicHighlight", {}, 
+        Slot["HighlightElements"], 
+        Slot["LayoutOptions"], 
+        Slot["Meta"], 
+        Charting`HighlightActionFunction["DynamicHighlight", {{{}, {}, 
+           Annotation[{
+             Hue[0.67, 0.6, 0.6], 
+             Directive[
+              PointSize[0.012833333333333334`], 
+              RGBColor[0.368417, 0.506779, 0.709798], 
+              AbsoluteThickness[2]], 
+             
+             Line[{{3.93552*^9, 21.44}, {3.9356064*^9, 20.39}, {3.9356928*^9, 
+              21.61}, {3.9357792*^9, 23.22}, {3.9358656*^9, 19.78}, {
+              3.935952*^9, 18.44}, {3.9360384*^9, 17.5}, {3.9361248*^9, 
+              17.11}}]}, "Charting`Private`Tag#1"]}}, <|
+         "HighlightElements" -> <|
+           "Label" -> {"XYLabel"}, "Ball" -> {"InterpolatedBall"}|>, 
+          "LayoutOptions" -> <|
+           "PanelPlotLayout" -> <||>, 
+            "PlotRange" -> {{3.93552*^9, 3.9361248*^9}, {16.770555555555593`, 
+             23.22}}, "Frame" -> {{True, True}, {True, True}}, 
+            "AxesOrigin" -> {3.93552*^9, 16.770555555555593`}, 
+            "ImageSize" -> {360, 360/GoldenRatio}, "Axes" -> {False, False}, 
+            "LabelStyle" -> {}, "AspectRatio" -> GoldenRatio^(-1), 
+            "DefaultStyle" -> {
+              Directive[
+               PointSize[0.012833333333333334`], 
+               RGBColor[0.368417, 0.506779, 0.709798], 
+               AbsoluteThickness[2]]}, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> (({
+                DateString[
+                 Part[#, 1], "DateShort"], 
+                Part[#, 2]}& )[{
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}]& ), 
+              "ScalingFunctions" -> {{Identity, Identity}, {
+                Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
+            False|>, 
+          "Meta" -> <|
+           "DefaultHighlight" -> {"Dynamic", None}, "Index" -> {}, "Function" -> 
+            DateListPlot, "GroupHighlight" -> False|>|>]]& )[<|
+        "HighlightElements" -> <|
+          "Label" -> {"XYLabel"}, "Ball" -> {"InterpolatedBall"}|>, 
+         "LayoutOptions" -> <|
+          "PanelPlotLayout" -> <||>, 
+           "PlotRange" -> {{3.93552*^9, 3.9361248*^9}, {16.770555555555593`, 
+            23.22}}, "Frame" -> {{True, True}, {True, True}}, 
+           "AxesOrigin" -> {3.93552*^9, 16.770555555555593`}, 
+           "ImageSize" -> {360, 360/GoldenRatio}, "Axes" -> {False, False}, 
+           "LabelStyle" -> {}, "AspectRatio" -> GoldenRatio^(-1), 
+           "DefaultStyle" -> {
+             Directive[
+              PointSize[0.012833333333333334`], 
+              RGBColor[0.368417, 0.506779, 0.709798], 
+              AbsoluteThickness[2]]}, 
+           "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> (({
+               DateString[
+                Part[#, 1], "DateShort"], 
+               Part[#, 2]}& )[{
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}]& ), 
+             "ScalingFunctions" -> {{Identity, Identity}, {
+               Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
+           False|>, 
+         "Meta" -> <|
+          "DefaultHighlight" -> {"Dynamic", None}, "Index" -> {}, "Function" -> 
+           DateListPlot, "GroupHighlight" -> False|>|>],
+       ImageSizeCache->{{4.503599627370496*^15, -4.503599627370496*^15}, {
+        4.503599627370496*^15, -4.503599627370496*^15}}],
+      Selectable->False]},
+    Annotation[{{{}, {}, 
+       Annotation[{
+         Hue[0.67, 0.6, 0.6], 
+         Directive[
+          PointSize[0.012833333333333334`], 
+          RGBColor[0.368417, 0.506779, 0.709798], 
+          AbsoluteThickness[2]], 
+         Line[{{3.93552*^9, 21.44}, {3.9356064*^9, 20.39}, {3.9356928*^9, 
+          21.61}, {3.9357792*^9, 23.22}, {3.9358656*^9, 19.78}, {3.935952*^9, 
+          18.44}, {3.9360384*^9, 17.5}, {3.9361248*^9, 17.11}}]}, 
+        "Charting`Private`Tag#1"]}}, <|
+     "HighlightElements" -> <|
+       "Label" -> {"XYLabel"}, "Ball" -> {"InterpolatedBall"}|>, 
+      "LayoutOptions" -> <|
+       "PanelPlotLayout" -> <||>, 
+        "PlotRange" -> {{3.93552*^9, 3.9361248*^9}, {16.770555555555593`, 
+         23.22}}, "Frame" -> {{True, True}, {True, True}}, 
+        "AxesOrigin" -> {3.93552*^9, 16.770555555555593`}, 
+        "ImageSize" -> {360, 360/GoldenRatio}, "Axes" -> {False, False}, 
+        "LabelStyle" -> {}, "AspectRatio" -> GoldenRatio^(-1), "DefaultStyle" -> {
+          Directive[
+           PointSize[0.012833333333333334`], 
+           RGBColor[0.368417, 0.506779, 0.709798], 
+           AbsoluteThickness[2]]}, 
+        "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> (({
+            DateString[
+             Part[#, 1], "DateShort"], 
+            Part[#, 2]}& )[{
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}]& ), 
+          "ScalingFunctions" -> {{Identity, Identity}, {
+            Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
+      "Meta" -> <|
+       "DefaultHighlight" -> {"Dynamic", None}, "Index" -> {}, "Function" -> 
+        DateListPlot, "GroupHighlight" -> False|>|>, 
+     "DynamicHighlight"]], {{}, {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{False, False},
+  AxesLabel->{None, None},
+  AxesOrigin->{3.93552*^9, 16.770555555555593`},
+  DisplayFunction->Identity,
+  Frame->{{True, True}, {True, True}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->FrontEndValueCache[{{Automatic, Automatic}, {
+      Charting`DateTicksFunction[Automatic, DateTicksFormat -> {Automatic}], 
+      Charting`DateTicksFunction[
+      Automatic, DateTicksFormat -> {Automatic}, "TickLabels" -> None]}}, {{
+     Automatic, Automatic}, {{{3.9354336*^9, 
+        FormBox[
+         StyleBox["\"Sep 16\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], 
+        Automatic, 
+        Directive[]}, {3.9356064*^9, 
+        FormBox[
+         StyleBox["\"Sep 18\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], 
+        Automatic, 
+        Directive[]}, {3.9357792*^9, 
+        FormBox[
+         StyleBox["\"Sep 20\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], 
+        Automatic, 
+        Directive[]}, {3.935952*^9, 
+        FormBox[
+         StyleBox["\"Sep 22\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], 
+        Automatic, 
+        Directive[]}, {3.9361248*^9, 
+        FormBox[
+         StyleBox["\"Sep 24\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], 
+        Automatic, 
+        Directive[]}, {3.9354336*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9354768*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.93552*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9355632*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9356064*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9356064*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9356496*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9356928*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.935736*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9357792*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9357792*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9358224*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9358656*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9359088*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.935952*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.935952*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9359952*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9360384*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9360816*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9361248*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}}, {{3.9354336*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9356064*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9357792*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.935952*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9361248*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9354336*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9354768*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.93552*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9355632*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9356064*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9356064*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9356496*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9356928*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.935736*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9357792*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9357792*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9358224*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9358656*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9359088*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.935952*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.935952*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9359952*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9360384*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9360816*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9361248*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}}}}],
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  Method->{
+   "NoShowPlotTheme" -> Automatic, "AxisPadding" -> Scaled[0.02], 
+    "DefaultBoundaryStyle" -> Automatic, 
+    "DefaultGraphicsInteraction" -> {
+     "Version" -> 1.2, "TrackMousePosition" -> {True, False}, 
+      "Effects" -> {
+       "Highlight" -> {"ratio" -> 2}, "HighlightPoint" -> {"ratio" -> 2}, 
+        "Droplines" -> {
+         "freeformCursorMode" -> True, 
+          "placement" -> {"x" -> "All", "y" -> "None"}}}}, "DefaultMeshStyle" -> 
+    AbsolutePointSize[6], "DefaultPlotStyle" -> {
+      Directive[
+       RGBColor[0.368417, 0.506779, 0.709798], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.880722, 0.611041, 0.142051], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.560181, 0.691569, 0.194885], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.922526, 0.385626, 0.209179], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.528488, 0.470624, 0.701351], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.772079, 0.431554, 0.102387], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.363898, 0.618501, 0.782349], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[1, 0.75, 0], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.647624, 0.37816, 0.614037], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.571589, 0.586483, 0.], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.915, 0.3325, 0.2125], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.40082222609352647`, 0.5220066643438841, 0.85], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.9728288904374106, 0.621644452187053, 0.07336199581899142], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.736782672705901, 0.358, 0.5030266573755369], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965], 
+       AbsoluteThickness[2]]}, "DomainPadding" -> Scaled[0.02], 
+    "PointSizeFunction" -> "SmallPointSize", "RangePadding" -> Scaled[0.05], 
+    "AllowMicroRanges" -> {True, False}, "OptimizePlotMarkers" -> True, 
+    "IncludeHighlighting" -> "CurrentSet", "HighlightStyle" -> Automatic, 
+    "OptimizePlotMarkers" -> True, 
+    "CoordinatesToolOptions" -> {"DisplayFunction" -> (({
+        DateString[
+         Part[#, 1], "DateShort"], 
+        Part[#, 2]}& )[{
+         Identity[
+          Part[#, 1]], 
+         Identity[
+          Part[#, 2]]}]& ), "CopiedValueFunction" -> (({
+        DateString[
+         Part[#, 1], "DateShort"], 
+        Part[#, 2]}& )[{
+         Identity[
+          Part[#, 1]], 
+         Identity[
+          Part[#, 2]]}]& )}},
+  PlotRange->{{3.93552*^9, 3.9361248*^9}, {16.770555555555593`, 23.22}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.05], 
+     Scaled[0.05]}},
+  Ticks->{{}, Automatic}]], "Output",
+ CellChangeTimes->{3.937575819046294*^9, 3.937583484607139*^9},
+ CellLabel->"Out[52]=",ExpressionUUID->"32d937bd-dab8-4abc-96c5-964338e8a9ef"],
+
+Cell["\<\
+DateListPlot is versatile and you can use it multiple ways. Notice we didn\
+\[CloseCurlyQuote]t have to do anything fancy with the inputs, we can just \
+insert the time series we wish to visualize.\
+\>", "Text",
+ CellChangeTimes->{{3.937576006947035*^9, 3.937576061595928*^9}, {
+  3.937583513487054*^9, 
+  3.937583513767231*^9}},ExpressionUUID->"b6632e2d-adc4-4b7b-916f-\
+3cbe22778d3b"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["1.3 WeatherForcastData Command", "Section",
+ CellChangeTimes->{{3.9360956471394863`*^9, 3.9360956510342484`*^9}, {
+  3.9360960983133907`*^9, 3.936096098915717*^9}, {3.936100022325987*^9, 
+  3.936100029385868*^9}, {3.936117448484901*^9, 
+  3.9361174485449553`*^9}},ExpressionUUID->"1bb109fb-646f-47c2-ad64-\
+2e2efe785e27"],
+
+Cell[TextData[{
+ StyleBox["The ",
+  FontSize->16],
+ StyleBox["WeatherForcastData",
+  FontSize->16,
+  FontWeight->"Bold"],
+ StyleBox[" command is similar to the first command, except it has a slightly \
+different capability and outputs  (i.e. predict future weather based on past \
+& current weather patterns via time series).\nIt takes in typically one to \
+three input values. ",
+  FontSize->16],
+ StyleBox["Location",
+  FontSize->16,
+  FontSlant->"Italic"],
+ StyleBox[". ",
+  FontSize->16],
+ StyleBox["Weather Property",
+  FontSize->16,
+  FontSlant->"Italic"],
+ StyleBox[". ",
+  FontSize->16],
+ StyleBox["Date Specification/Range",
+  FontSize->16,
+  FontSlant->"Italic"],
+ StyleBox[". Sometimes if we want to retrieve data based on one parameter, we \
+can do that using this command ",
+  FontSize->16],
+ StyleBox["not ",
+  FontSize->16,
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+ StyleBox["WeatherData. \n",
+  FontSize->16],
+ StyleBox["\nRun this command. ",
+  FontSize->16]
+}], "Text",
+ CellChangeTimes->{{3.9361000426574802`*^9, 3.9361000556728277`*^9}, {
+  3.936101375404911*^9, 3.936101384809102*^9}, {3.936102460686531*^9, 
+  3.936102503332438*^9}, {3.936102603718522*^9, 3.9361026117003307`*^9}, {
+  3.93610686855637*^9, 3.936106869229187*^9}, {3.9375768306570387`*^9, 
+  3.93757700550552*^9}, {3.937577276987987*^9, 3.937577325226427*^9}, {
+  3.9375774868323317`*^9, 3.937577613691937*^9}, {3.9375835509535503`*^9, 
+  3.937583590498837*^9}},ExpressionUUID->"30832357-ecc7-486d-8aca-\
+0bdd9f13a75a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"WeatherForecastData", " ", "[", 
+   RowBox[{"{", 
+    RowBox[{"2024", ",", " ", "10", ",", " ", "01"}], "}"}], "]"}], 
+  " "}]], "Input",
+ CellChangeTimes->{{3.9361019444069633`*^9, 3.936101966735351*^9}, {
+   3.9361020494106083`*^9, 3.93610205068571*^9}, {3.936102101251814*^9, 
+   3.936102128878467*^9}, {3.936102242400532*^9, 3.936102259101075*^9}, 
+   3.9361023953769827`*^9, {3.936102563451928*^9, 3.936102568734922*^9}, 
+   3.936104554762138*^9, {3.936106882809825*^9, 3.936106914436824*^9}, 
+   3.936108027950542*^9, {3.937576923356017*^9, 3.937576928096506*^9}, {
+   3.937576979014681*^9, 3.9375769813250437`*^9}, {3.9375770591485777`*^9, 
+   3.93757710763608*^9}, {3.937577202584071*^9, 3.937577203353685*^9}, {
+   3.93757742755057*^9, 3.9375774286294603`*^9}, {3.9375778933907557`*^9, 
+   3.9375779235957603`*^9}},
+ CellLabel->"In[53]:=",ExpressionUUID->"73603fa0-e1b6-4e0d-9691-dfb1480ac8d7"],
+
+Cell["\<\
+Notice the date in the input. You can see that when accessing past data \
+trends it says \[OpenCurlyDoubleQuote]not available\[CloseCurlyDoubleQuote]. \
+That\[CloseCurlyQuote]s because you can\[CloseCurlyQuote]t use it like we did \
+with WeatherData. This new command can only be used in making predictions for \
+future weather properties.\
+\>", "Text",
+ CellChangeTimes->{{3.937577012174818*^9, 3.937577037314516*^9}, {
+  3.937577111753121*^9, 3.9375771563926783`*^9}, {3.937577723896071*^9, 
+  3.937577747443633*^9}, {3.937583594464364*^9, 
+  3.937583600911767*^9}},ExpressionUUID->"4a222da7-ed13-44e9-afc9-\
+cbeddf7f1d23"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.937578078982429*^9, 
+  3.9375780815326767`*^9}},ExpressionUUID->"3a40df9f-6c6a-43d0-bb9c-\
+3d95b9ebaf76"],
+
+Cell[TextData[{
+ StyleBox["TRY",
+  FontWeight->"Bold"],
+ " ",
+ StyleBox["Use",
+  FontVariations->{"Underline"->True}],
+ " the WeatherForecastData command to retrieve next week Thursday\
+\[CloseCurlyQuote]s forecast. Do we have multiple time series as outputs? "
+}], "Text",
+ CellChangeTimes->{{3.937577164290183*^9, 3.937577248610224*^9}, {
+  3.937577420592929*^9, 3.937577423655509*^9}, {3.937577756637739*^9, 
+  3.9375777573765697`*^9}, {3.9375777902960987`*^9, 3.93757782301863*^9}, {
+  3.937578023732553*^9, 3.937578025045631*^9}, {3.93758373110445*^9, 
+  3.93758375048273*^9}, {3.93758392413699*^9, 
+  3.9375839245002947`*^9}},ExpressionUUID->"6d99523c-f01f-49db-9153-\
+d2e330dee6bd"],
+
+Cell[TextData[{
+ StyleBox["TRY",
+  FontWeight->"Bold"],
+ StyleBox[" ",
+  FontWeight->"Bold"],
+ StyleBox["Edit",
+  FontVariations->{"Underline"->True}],
+ " the following command to plot the data from next Thursday to end of the \
+month with increment value of day. If it is in the last week of the month, \
+use next month\[CloseCurlyQuote]s end. We want to know the Temperature the \
+predictive trends throughout."
+}], "Text",
+ CellChangeTimes->{{3.936107738741029*^9, 3.936107755137382*^9}, {
+   3.937574423237996*^9, 3.937574424742923*^9}, {3.9375773573950357`*^9, 
+   3.937577396220171*^9}, {3.937577470753106*^9, 3.937577476226206*^9}, 
+   3.9375777879561987`*^9, {3.937577849910151*^9, 3.9375778892300034`*^9}, 
+   3.937577991987218*^9, {3.9375781694363337`*^9, 3.93757821740038*^9}, {
+   3.937578256190922*^9, 3.9375782954233522`*^9}, {3.937578403569456*^9, 
+   3.9375784355754013`*^9}, {3.937578547874596*^9, 
+   3.937578606493503*^9}},ExpressionUUID->"c8f429f4-b294-4b13-a67d-\
+c2e5e0ca35de"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DateListPlot", "[", 
+  RowBox[{
+   RowBox[{"WeatherForecastData", " ", "[", "\"\<Humidity\>\"", "]"}], ",", 
+   " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"2024", ",", " ", "9", ",", " ", "23"}], "}"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"2024", ",", " ", "10", ",", " ", "23"}], "}"}], ",", " ", 
+     "\"\<Day\>\""}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.936106921999366*^9, 3.936107090006756*^9}, 
+   3.936107652092367*^9, 3.936108029898624*^9, {3.937578279491458*^9, 
+   3.937578288530181*^9}, {3.937578451448861*^9, 3.9375784703631287`*^9}, {
+   3.937578506614833*^9, 3.9375785348434277`*^9}, {3.93757857223964*^9, 
+   3.937578579476611*^9}},
+ CellLabel->"In[35]:=",ExpressionUUID->"ce61946e-b503-4b17-8b36-8a73d582a2ce"],
+
+Cell[BoxData[
+ GraphicsBox[{{}, 
+   InterpretationBox[{
+     TagBox[{{}, {}, 
+       TagBox[
+        {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+         0.011000000000000001`], AbsoluteThickness[2], LineBox[CompressedData["
+1:eJxTTMoPSmViYGAwA2IQDQS3wsPeOkKY7g5AQiEWxm/wAvHTkoB8RjDfG8Rf
+kw6X9wXxP+XA9fuD+BZFcPkAEL+uHC4P1n+kBi7vDOJzNcH5biB+QDtcvSeI
+P60HVf+diXD3+ID4StNR3ZcxB1V+3UIg/z8YgPlflqGaZ7UGbr8HiN+wEZV/
+bBtcPZjPswc1vIIOwtWD/T/jGJwfCOLfOw3n+4H4Khdh7mMAuyfrGqp7N9xG
+Vf/tAYzvADbP5hmcHwTiN72G84NB/BMf4Hxw+PN9QzU/5Deqf2YxhMP44PB/
+wBqOIq/GHY4SPzkC4Sjxs0k0HMX8H1LhKOnDTgFVfYsqnA+O/1NacL4TiC9g
+gOqeMNNwlPCdYwXjHwD775F9OEr4aLii8vO8wlHif4s/qvm/QuDmu4L4DlHh
+KOmjLR7VP2dSUM0TykKVj8gPR8QfAP8Cxw0=
+          "]]},
+        Annotation[#, "Charting`Private`Tag#1"]& ]},
+      {"WolframDynamicHighlight", <|
+       "Label" -> {"XYLabel"}, "Ball" -> {"InterpolatedBall"}|>}], 
+     StyleBox[
+      DynamicBox[(Charting`HighlightActionBox["DynamicHighlight", {}, 
+        Slot["HighlightElements"], 
+        Slot["LayoutOptions"], 
+        Slot["Meta"], 
+        Charting`HighlightActionFunction["DynamicHighlight", {{{}, {}, 
+           Annotation[{
+             Hue[0.67, 0.6, 0.6], 
+             Directive[
+              PointSize[0.011000000000000001`], 
+              RGBColor[0.368417, 0.506779, 0.709798], 
+              AbsoluteThickness[2]], 
+             Line[CompressedData["
+1:eJxTTMoPSmViYGAwA2IQDQS3wsPeOkKY7g5AQiEWxm/wAvHTkoB8RjDfG8Rf
+kw6X9wXxP+XA9fuD+BZFcPkAEL+uHC4P1n+kBi7vDOJzNcH5biB+QDtcvSeI
+P60HVf+diXD3+ID4StNR3ZcxB1V+3UIg/z8YgPlflqGaZ7UGbr8HiN+wEZV/
+bBtcPZjPswc1vIIOwtWD/T/jGJwfCOLfOw3n+4H4Khdh7mMAuyfrGqp7N9xG
+Vf/tAYzvADbP5hmcHwTiN72G84NB/BMf4Hxw+PN9QzU/5Deqf2YxhMP44PB/
+wBqOIq/GHY4SPzkC4Sjxs0k0HMX8H1LhKOnDTgFVfYsqnA+O/1NacL4TiC9g
+gOqeMNNwlPCdYwXjHwD775F9OEr4aLii8vO8wlHif4s/qvm/QuDmu4L4DlHh
+KOmjLR7VP2dSUM0TykKVj8gPR8QfAP8Cxw0=
+              "]]}, "Charting`Private`Tag#1"]}}, <|
+         "HighlightElements" -> <|
+           "Label" -> {"XYLabel"}, "Ball" -> {"InterpolatedBall"}|>, 
+          "LayoutOptions" -> <|
+           "PanelPlotLayout" -> <||>, 
+            "PlotRange" -> {{3.9375828*^9, 3.9381552*^9}, {0, 77.}}, 
+            "Frame" -> {{True, True}, {True, True}}, 
+            "AxesOrigin" -> {3.9375828*^9, 0}, 
+            "ImageSize" -> {360, 360/GoldenRatio}, "Axes" -> {False, False}, 
+            "LabelStyle" -> {}, "AspectRatio" -> GoldenRatio^(-1), 
+            "DefaultStyle" -> {
+              Directive[
+               PointSize[0.011000000000000001`], 
+               RGBColor[0.368417, 0.506779, 0.709798], 
+               AbsoluteThickness[2]]}, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> (({
+                DateString[
+                 Part[#, 1], "DateShort"], 
+                Part[#, 2]}& )[{
+                 Identity[
+                  Part[#, 1]], 
+                 Identity[
+                  Part[#, 2]]}]& ), 
+              "ScalingFunctions" -> {{Identity, Identity}, {
+                Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
+            False|>, 
+          "Meta" -> <|
+           "DefaultHighlight" -> {"Dynamic", None}, "Index" -> {}, "Function" -> 
+            DateListPlot, "GroupHighlight" -> False|>|>]]& )[<|
+        "HighlightElements" -> <|
+          "Label" -> {"XYLabel"}, "Ball" -> {"InterpolatedBall"}|>, 
+         "LayoutOptions" -> <|
+          "PanelPlotLayout" -> <||>, 
+           "PlotRange" -> {{3.9375828*^9, 3.9381552*^9}, {0, 77.}}, 
+           "Frame" -> {{True, True}, {True, True}}, 
+           "AxesOrigin" -> {3.9375828*^9, 0}, 
+           "ImageSize" -> {360, 360/GoldenRatio}, "Axes" -> {False, False}, 
+           "LabelStyle" -> {}, "AspectRatio" -> GoldenRatio^(-1), 
+           "DefaultStyle" -> {
+             Directive[
+              PointSize[0.011000000000000001`], 
+              RGBColor[0.368417, 0.506779, 0.709798], 
+              AbsoluteThickness[2]]}, 
+           "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> (({
+               DateString[
+                Part[#, 1], "DateShort"], 
+               Part[#, 2]}& )[{
+                Identity[
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}]& ), 
+             "ScalingFunctions" -> {{Identity, Identity}, {
+               Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> 
+           False|>, 
+         "Meta" -> <|
+          "DefaultHighlight" -> {"Dynamic", None}, "Index" -> {}, "Function" -> 
+           DateListPlot, "GroupHighlight" -> False|>|>],
+       ImageSizeCache->{{4.503599627370496*^15, -4.503599627370496*^15}, {
+        4.503599627370496*^15, -4.503599627370496*^15}}],
+      Selectable->False]},
+    Annotation[{{{}, {}, 
+       Annotation[{
+         Hue[0.67, 0.6, 0.6], 
+         Directive[
+          PointSize[0.011000000000000001`], 
+          RGBColor[0.368417, 0.506779, 0.709798], 
+          AbsoluteThickness[2]], 
+         Line[CompressedData["
+1:eJxTTMoPSmViYGAwA2IQDQS3wsPeOkKY7g5AQiEWxm/wAvHTkoB8RjDfG8Rf
+kw6X9wXxP+XA9fuD+BZFcPkAEL+uHC4P1n+kBi7vDOJzNcH5biB+QDtcvSeI
+P60HVf+diXD3+ID4StNR3ZcxB1V+3UIg/z8YgPlflqGaZ7UGbr8HiN+wEZV/
+bBtcPZjPswc1vIIOwtWD/T/jGJwfCOLfOw3n+4H4Khdh7mMAuyfrGqp7N9xG
+Vf/tAYzvADbP5hmcHwTiN72G84NB/BMf4Hxw+PN9QzU/5Deqf2YxhMP44PB/
+wBqOIq/GHY4SPzkC4Sjxs0k0HMX8H1LhKOnDTgFVfYsqnA+O/1NacL4TiC9g
+gOqeMNNwlPCdYwXjHwD775F9OEr4aLii8vO8wlHif4s/qvm/QuDmu4L4DlHh
+KOmjLR7VP2dSUM0TykKVj8gPR8QfAP8Cxw0=
+          "]]}, "Charting`Private`Tag#1"]}}, <|
+     "HighlightElements" -> <|
+       "Label" -> {"XYLabel"}, "Ball" -> {"InterpolatedBall"}|>, 
+      "LayoutOptions" -> <|
+       "PanelPlotLayout" -> <||>, 
+        "PlotRange" -> {{3.9375828*^9, 3.9381552*^9}, {0, 77.}}, 
+        "Frame" -> {{True, True}, {True, True}}, 
+        "AxesOrigin" -> {3.9375828*^9, 0}, 
+        "ImageSize" -> {360, 360/GoldenRatio}, "Axes" -> {False, False}, 
+        "LabelStyle" -> {}, "AspectRatio" -> GoldenRatio^(-1), "DefaultStyle" -> {
+          Directive[
+           PointSize[0.011000000000000001`], 
+           RGBColor[0.368417, 0.506779, 0.709798], 
+           AbsoluteThickness[2]]}, 
+        "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> (({
+            DateString[
+             Part[#, 1], "DateShort"], 
+            Part[#, 2]}& )[{
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}]& ), 
+          "ScalingFunctions" -> {{Identity, Identity}, {
+            Identity, Identity}}|>, "Primitives" -> {}, "GCFlag" -> False|>, 
+      "Meta" -> <|
+       "DefaultHighlight" -> {"Dynamic", None}, "Index" -> {}, "Function" -> 
+        DateListPlot, "GroupHighlight" -> False|>|>, 
+     "DynamicHighlight"]], {{}, {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{False, False},
+  AxesLabel->{None, None},
+  AxesOrigin->{3.9375828*^9, 0},
+  DisplayFunction->Identity,
+  Frame->{{True, True}, {True, True}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->FrontEndValueCache[{{Automatic, Automatic}, {
+      Charting`DateTicksFunction[Automatic, DateTicksFormat -> {Automatic}], 
+      Charting`DateTicksFunction[
+      Automatic, DateTicksFormat -> {Automatic}, "TickLabels" -> None]}}, {{
+     Automatic, Automatic}, {{{3.9375072*^9, 
+        FormBox[
+         StyleBox["\"Oct 10\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], 
+        Automatic, 
+        Directive[]}, {3.93768*^9, 
+        FormBox[
+         StyleBox["\"Oct 12\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], 
+        Automatic, 
+        Directive[]}, {3.9378528*^9, 
+        FormBox[
+         StyleBox["\"Oct 14\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], 
+        Automatic, 
+        Directive[]}, {3.9380256*^9, 
+        FormBox[
+         StyleBox["\"Oct 16\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], 
+        Automatic, 
+        Directive[]}, {3.9381984*^9, 
+        FormBox[
+         StyleBox["\"Oct 18\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], 
+        Automatic, 
+        Directive[]}, {3.9375072*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9375504*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9375936*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9376368*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.93768*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.93768*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9377232*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9377664*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9378096*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9378528*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9378528*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.937896*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9379392*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9379824*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9380256*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9380256*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9380688*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.938112*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9381552*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9381984*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}}, {{3.9375072*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.93768*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9378528*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9380256*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9381984*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9375072*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9375504*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9375936*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9376368*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.93768*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.93768*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9377232*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9377664*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9378096*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9378528*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9378528*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.937896*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9379392*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9379824*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9380256*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9380256*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9380688*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.938112*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9381552*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}, {3.9381984*^9, 
+        FormBox[
+         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+        Directive[]}}}}],
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  Method->{
+   "NoShowPlotTheme" -> Automatic, "AxisPadding" -> Scaled[0.02], 
+    "DefaultBoundaryStyle" -> Automatic, 
+    "DefaultGraphicsInteraction" -> {
+     "Version" -> 1.2, "TrackMousePosition" -> {True, False}, 
+      "Effects" -> {
+       "Highlight" -> {"ratio" -> 2}, "HighlightPoint" -> {"ratio" -> 2}, 
+        "Droplines" -> {
+         "freeformCursorMode" -> True, 
+          "placement" -> {"x" -> "All", "y" -> "None"}}}}, "DefaultMeshStyle" -> 
+    AbsolutePointSize[6], "DefaultPlotStyle" -> {
+      Directive[
+       RGBColor[0.368417, 0.506779, 0.709798], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.880722, 0.611041, 0.142051], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.560181, 0.691569, 0.194885], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.922526, 0.385626, 0.209179], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.528488, 0.470624, 0.701351], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.772079, 0.431554, 0.102387], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.363898, 0.618501, 0.782349], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[1, 0.75, 0], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.647624, 0.37816, 0.614037], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.571589, 0.586483, 0.], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.915, 0.3325, 0.2125], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.40082222609352647`, 0.5220066643438841, 0.85], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.9728288904374106, 0.621644452187053, 0.07336199581899142], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.736782672705901, 0.358, 0.5030266573755369], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965], 
+       AbsoluteThickness[2]]}, "DomainPadding" -> Scaled[0.02], 
+    "PointSizeFunction" -> "SmallPointSize", "RangePadding" -> Scaled[0.05], 
+    "AllowMicroRanges" -> {True, False}, "OptimizePlotMarkers" -> True, 
+    "IncludeHighlighting" -> "CurrentSet", "HighlightStyle" -> Automatic, 
+    "OptimizePlotMarkers" -> True, 
+    "CoordinatesToolOptions" -> {"DisplayFunction" -> (({
+        DateString[
+         Part[#, 1], "DateShort"], 
+        Part[#, 2]}& )[{
+         Identity[
+          Part[#, 1]], 
+         Identity[
+          Part[#, 2]]}]& ), "CopiedValueFunction" -> (({
+        DateString[
+         Part[#, 1], "DateShort"], 
+        Part[#, 2]}& )[{
+         Identity[
+          Part[#, 1]], 
+         Identity[
+          Part[#, 2]]}]& )}},
+  PlotRange->{{3.9375828*^9, 3.9381552*^9}, {0, 77.}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.02], 
+     Scaled[0.05]}},
+  Ticks->{{}, Automatic}]], "Output",
+ CellChangeTimes->{
+  3.937577364423888*^9, 3.9375782313152027`*^9, {3.937578283711459*^9, 
+   3.937578289422249*^9}, {3.937578472180245*^9, 3.9375784771933193`*^9}, {
+   3.937578512026186*^9, 3.9375785356332197`*^9}, 3.937578581560062*^9},
+ CellLabel->"Out[35]=",ExpressionUUID->"b45203a9-f114-4036-99c6-693a6b0991db"]
+}, Open  ]],
+
+Cell["\<\
+Running the following command will give you your current location in terms of \
+geographical coordinate points where a \[OpenCurlyDoubleQuote]+/-\
+\[CloseCurlyDoubleQuote] sign in front of the first number means East/West \
+and in front of the second number means North/South. 
+Google if those coordinate points are correct for your area.\
+\>", "Text",
+ CellChangeTimes->{{3.937578722954507*^9, 3.9375788503870163`*^9}, {
+  3.937578904114266*^9, 3.937579002464821*^9}, {3.937579532405182*^9, 
+  3.9375795725924673`*^9}},ExpressionUUID->"0d6a5135-57f1-49ff-a6fa-\
+eb09969d41ad"],
+
+Cell[BoxData[
+ RowBox[{"LatitudeLongitude", " ", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.936104266411791*^9, 3.936104307092414*^9}, {
+   3.936104389241441*^9, 3.936104413490288*^9}, 3.936104556263617*^9, 
+   3.9361049911239653`*^9, {3.936105023527491*^9, 3.9361050239198647`*^9}, {
+   3.936108031052211*^9, 3.936108031501*^9}},
+ CellLabel->"In[37]:=",ExpressionUUID->"d6846fd6-7ed4-4e8e-82f9-c5d99949ea34"],
+
+Cell["\<\
+For the below command, recall that we can sometimes only have one parameter. \
+In this case location is set as a weather station in form 4 capital letters. \
+KNYC is the weather station for new york city. Note that the output as we \
+discussed earlier is in time series. Use a data plot command to visualize the \
+trends.\
+\>", "Text",
+ CellChangeTimes->{{3.937579071857826*^9, 3.9375791333833313`*^9}, {
+  3.937579178996045*^9, 3.937579192055233*^9}, {3.937579262508219*^9, 
+  3.93757931836753*^9}},ExpressionUUID->"f5efdd0d-6c50-4cc2-a25e-\
+8fb131f09726"],
+
+Cell[BoxData[
+ RowBox[{"WeatherForecastData", " ", "[", "\"\<KNYC\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.936105025894011*^9, 3.936105040215035*^9}, {
+   3.936105085853396*^9, 3.936105091544859*^9}, 3.936105354963107*^9, 
+   3.936108033659103*^9},
+ CellLabel->"In[38]:=",ExpressionUUID->"90c55c6a-c913-4b7b-bb98-0a4cde9ccda1"],
+
+Cell[TextData[StyleBox["Try running the following command. Do you get an \
+error? Why or why not?",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.936105987523489*^9, 3.936106013795615*^9}, {
+  3.9375793297739973`*^9, 3.93757933367656*^9}, {3.937583962033495*^9, 
+  3.93758396585056*^9}},ExpressionUUID->"3f4898ea-f60c-4768-b21f-\
+16b80172a342"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"WeatherData", " ", "[", "\"\<WindSpeed\>\"", "]"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Mathematica", " ", "supports", " ", "the", " ", "use", " ", "of", " ", 
+    "Standard", " ", 
+    RowBox[{"Units", ".", " ", "Speed"}], " ", "is", " ", "in", " ", 
+    RowBox[{"m", "/", "s"}]}], " ", "*)"}]}]], "Input",
+ CellChangeTimes->{{3.936105951527914*^9, 3.9361059825373287`*^9}, {
+  3.936106164092793*^9, 3.9361061678716288`*^9}, {3.936106379936493*^9, 
+  3.9361063970763187`*^9}, {3.9361064546942*^9, 3.936106464703532*^9}},
+ CellLabel->"In[39]:=",ExpressionUUID->"0c79ff9c-2c71-47d5-a487-cebcedc23682"],
+
+Cell[TextData[StyleBox["Now, try running this command. Do you get an error? \
+Why or why not?",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.936106035017251*^9, 3.936106051119035*^9}, {
+   3.9361061949280024`*^9, 3.9361062057132273`*^9}, 3.9375793432314367`*^9, {
+   3.93758397586893*^9, 
+   3.93758398138577*^9}},ExpressionUUID->"5bf58688-2a1d-4fb0-bd8b-\
+269fd625a74b"],
+
+Cell[BoxData[
+ RowBox[{"WeatherForecastData", " ", "[", "\"\<WindSpeed\>\"", "]"}]], "Input",\
+
+ CellChangeTimes->{{3.936106057466873*^9, 3.936106064812254*^9}, {
+  3.936106130758461*^9, 3.9361061694695387`*^9}},
+ CellLabel->"In[40]:=",ExpressionUUID->"96aae666-c37c-4340-b10a-d8a2f1b5a79b"],
+
+Cell["\<\
+This difference in both outputs highlights the true purpose of WeatherData \
+and WeatherForecastData. One to predict. The other to retrieve. You\
+\[CloseCurlyQuote]ll also notice that WeatherData outputs are more specific, \
+whereas WeatherForecastData outputs are a combination of different weather \
+properties being predicted.\
+\>", "Text",
+ CellChangeTimes->{{3.937579460609982*^9, 3.937579508096005*^9}, {
+  3.937579616252647*^9, 
+  3.937579707175144*^9}},ExpressionUUID->"2d40a57a-faa0-483a-a4b4-\
+35c076397ea1"],
+
+Cell["\<\
+Now run this command. We can increment as slowly as on a hourly basis when \
+plotting our data. This is because precise measurements can be taken every \
+hour by measuring devices all over the world. \
+\>", "Text",
+ CellChangeTimes->{{3.937579718148818*^9, 3.937579808986638*^9}, {
+  3.93758400134947*^9, 
+  3.937584021666253*^9}},ExpressionUUID->"8ecdaaff-38f5-414e-9521-\
+318dd6cacd83"],
+
+Cell[BoxData[
+ RowBox[{"DateListPlot", " ", "[", 
+  RowBox[{
+   RowBox[{"WeatherForecastData", "[", "\"\<WindSpeed\>\"", "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"2024", ",", " ", "9", ",", " ", "17"}], "}"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"2024", ",", " ", "9", ",", " ", "24"}], "}"}], ",", " ", 
+     "\"\<Hour\>\""}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.936105121878097*^9, 3.936105133907414*^9}, {
+  3.93610559724142*^9, 3.9361055985025873`*^9}, {3.9361056889658003`*^9, 
+  3.936105726448249*^9}, {3.936105780641323*^9, 3.936105807606882*^9}, {
+  3.936105890238132*^9, 3.9361059360423393`*^9}, {3.936106219058025*^9, 
+  3.936106284654357*^9}, {3.9361084858268747`*^9, 3.936108490125926*^9}},
+ CellLabel->"In[41]:=",ExpressionUUID->"a4b02527-a480-4a67-8511-58c607a48817"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["1.4 ListPlot and ListLinePlot Commands", "Section",
+ CellChangeTimes->{{3.936107691915711*^9, 3.936107692832024*^9}, {
+  3.936108236122169*^9, 3.936108248997631*^9}, {3.936109156374689*^9, 
+  3.93610916261163*^9}, {3.936110803952241*^9, 3.93611080649514*^9}, {
+  3.9361174519471493`*^9, 3.936117452042963*^9}, {3.937581796799705*^9, 
+  3.9375818109507017`*^9}},ExpressionUUID->"6db62080-1699-4445-a30a-\
+4beabbee1343"],
+
+Cell["\<\
+We can see from the above commands how important it is to plot and visualize \
+the data we have successfully retrieved. In this section, we will learn \
+several commands that help us visualize the data on a graph, or chart.\
+\>", "Text",
+ CellChangeTimes->{{3.936108262045442*^9, 3.9361083703654203`*^9}, {
+  3.937579839983429*^9, 3.937579877881383*^9}, {3.9375807379661407`*^9, 
+  3.9375807458431473`*^9}},ExpressionUUID->"6b3631e2-63f5-45ab-a8ae-\
+88e6d11f43dd"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"WeatherForecastData", " ", "[", "\"\<MeanTemperature\>\"", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.937580795062644*^9, 3.937580812562121*^9}},
+ CellLabel->"In[44]:=",ExpressionUUID->"a2c7cf53-a9b9-44b6-826f-1596f17f18fd"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["TimeSeries",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{{}, {{}, {}, {
+                GrayLevel[0.5], 
+                PointSize[0.125], 
+                AbsoluteThickness[1.5], 
+                StyleBox[
+                 LineBox[CompressedData["
+1:eJxTTMoPSmViYGAwAmIQDQEf7Fl11LwinD7aQwUcXn2Jtl8b9ArK53Bw3utt
+q3f4M5Qv4CC+Otg/K43RAcIXcfi+f0F40nsYX8JBX1jtBbsrL5Qv45DtoBvW
+xcwP5Ss4NFwMEp60GWafksOc359Whf/9BeWrOARoR64NnnwNyldzMHERNjG5
++no/hK/hIKRdVZBY8w3K13LIMJWbeIH9L5Sv4zDLV7txKvsXKF/PoWzi1MhL
+TFwHIHwDB/cgkWNzBTmgfEOHQ2p/W4VucUL5Rg7G79Iu8t1mg/KNHcrd9WVC
+ixmhfBOHrX+2zedZ8B9qvqnDPJ3j61kKGKDyZg5FiwwE9lTA7DN3qN+4vmmS
+siiUb+HAtbzy3bJ4ISjf0oFzYux88dMCUL6VQ5zaARf5axJQvrWDmCZL36VN
+UlC+jYPfBC+BlBJxKN/WoX+K14Vt8jJQvp3DgYTiXbPeiUD59g48fy+4bYoW
+g/IdHL4IXz2XEgqVb3BwONa2ilHOixsq7+jg3yuU9L5AECrv6NBaqXjidDLM
+vU4OTZOznfNi2KHyTg4WG+6H/hWBhY+zQ5qveFfD7s+Q8Glwdviw+EOTxY2j
+0Ph0cVj18NqRC96XIfwGF4dlb2fpWLbB0perwzqzL3Nnz/wElXd1YCgOSXoi
+cRUq7+ZgkHHN7dvHG1Dz3RxO/X996GnXG2h8uDusTTv5fqPlTai8u4O3Uoqa
+3YkrUP0eDlu+ZYpfimJwgMh7OPwpNvZ9PpcDwmfwdPgt/Kj+tbigAwD0Q951
+
+                  "]], {FontFamily -> "Arial"}, StripOnInput -> False]}}, {}},
+              AspectRatio -> 1, Axes -> {False, False}, 
+             AxesLabel -> {None, None}, AxesOrigin -> {0., 0.}, Background -> 
+             GrayLevel[0.93], BaseStyle -> {FontFamily -> "Arial"}, 
+             DisplayFunction -> Identity, 
+             Frame -> {{True, True}, {True, True}}, 
+             FrameLabel -> {{None, None}, {None, None}}, FrameStyle -> 
+             Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.7]], FrameTicks -> {{None, None}, {None, None}}, 
+             GridLines -> {None, None}, GridLinesStyle -> Directive[
+               GrayLevel[0.5, 0.4]], ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}], LabelStyle -> {FontFamily -> "Arial"}, 
+             Method -> {"ScalingFunctions" -> None}, 
+             PlotRange -> {{0., 50.}, {-7.030970816185017, 
+              4.273359296964368}}, PlotRangeClipping -> True, 
+             PlotRangePadding -> {{1, 1}, {1, 1}}, 
+             Ticks -> {Automatic, Automatic}], 
+            GridBox[{{
+               TagBox[
+                TemplateBox[{
+                  RowBox[{
+                    TagBox["\"Time: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox[
+                    TemplateBox[{
+                    RowBox[{"\"10 Oct 2024\""}], 
+                    RowBox[{"DateObject", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"2024", ",", "10", ",", "10"}], "}"}], ",", 
+                    "\"Day\"", ",", "\"Gregorian\"", ",", "None", ",", 
+                    "\"UT\"", ",", 
+                    RowBox[{"{", 
+                    
+                    RowBox[{"\"Day\"", ",", "\" \"", ",", 
+                    "\"MonthNameShort\"", ",", "\" \"", ",", "\"Year\""}], 
+                    "}"}]}], "]"}]}, "DateObject", Editable -> False], 
+                    "SummaryItem"]}], 
+                  RowBox[{
+                    TagBox["\" to \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox[
+                    TemplateBox[{
+                    RowBox[{"\"17 Oct 2024\""}], 
+                    RowBox[{"DateObject", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"2024", ",", "10", ",", "17"}], "}"}], ",", 
+                    "\"Day\"", ",", "\"Gregorian\"", ",", "None", ",", 
+                    "\"UT\"", ",", 
+                    RowBox[{"{", 
+                    
+                    RowBox[{"\"Day\"", ",", "\" \"", ",", 
+                    "\"MonthNameShort\"", ",", "\" \"", ",", "\"Year\""}], 
+                    "}"}]}], "]"}]}, "DateObject", Editable -> False], 
+                    "SummaryItem"]}]}, "RowDefault"], "SummaryItem"], 
+               "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox["\"Data points: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["8", "SummaryItem"]}], "\[SpanFromLeft]"}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{{}, {{}, {}, {
+                GrayLevel[0.5], 
+                PointSize[0.125], 
+                AbsoluteThickness[1.5], 
+                StyleBox[
+                 LineBox[CompressedData["
+1:eJxTTMoPSmViYGAwAmIQDQEf7Fl11LwinD7aQwUcXn2Jtl8b9ArK53Bw3utt
+q3f4M5Qv4CC+Otg/K43RAcIXcfi+f0F40nsYX8JBX1jtBbsrL5Qv45DtoBvW
+xcwP5Ss4NFwMEp60GWafksOc359Whf/9BeWrOARoR64NnnwNyldzMHERNjG5
++no/hK/hIKRdVZBY8w3K13LIMJWbeIH9L5Sv4zDLV7txKvsXKF/PoWzi1MhL
+TFwHIHwDB/cgkWNzBTmgfEOHQ2p/W4VucUL5Rg7G79Iu8t1mg/KNHcrd9WVC
+ixmhfBOHrX+2zedZ8B9qvqnDPJ3j61kKGKDyZg5FiwwE9lTA7DN3qN+4vmmS
+siiUb+HAtbzy3bJ4ISjf0oFzYux88dMCUL6VQ5zaARf5axJQvrWDmCZL36VN
+UlC+jYPfBC+BlBJxKN/WoX+K14Vt8jJQvp3DgYTiXbPeiUD59g48fy+4bYoW
+g/IdHL4IXz2XEgqVb3BwONa2ilHOixsq7+jg3yuU9L5AECrv6NBaqXjidDLM
+vU4OTZOznfNi2KHyTg4WG+6H/hWBhY+zQ5qveFfD7s+Q8Glwdviw+EOTxY2j
+0Ph0cVj18NqRC96XIfwGF4dlb2fpWLbB0perwzqzL3Nnz/wElXd1YCgOSXoi
+cRUq7+ZgkHHN7dvHG1Dz3RxO/X996GnXG2h8uDusTTv5fqPlTai8u4O3Uoqa
+3YkrUP0eDlu+ZYpfimJwgMh7OPwpNvZ9PpcDwmfwdPgt/Kj+tbigAwD0Q951
+
+                  "]], {FontFamily -> "Arial"}, StripOnInput -> False]}}, {}},
+              AspectRatio -> 1, Axes -> {False, False}, 
+             AxesLabel -> {None, None}, AxesOrigin -> {0., 0.}, Background -> 
+             GrayLevel[0.93], BaseStyle -> {FontFamily -> "Arial"}, 
+             DisplayFunction -> Identity, 
+             Frame -> {{True, True}, {True, True}}, 
+             FrameLabel -> {{None, None}, {None, None}}, FrameStyle -> 
+             Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.7]], FrameTicks -> {{None, None}, {None, None}}, 
+             GridLines -> {None, None}, GridLinesStyle -> Directive[
+               GrayLevel[0.5, 0.4]], ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}], LabelStyle -> {FontFamily -> "Arial"}, 
+             Method -> {"ScalingFunctions" -> None}, 
+             PlotRange -> {{0., 50.}, {-7.030970816185017, 
+              4.273359296964368}}, PlotRangeClipping -> True, 
+             PlotRangePadding -> {{1, 1}, {1, 1}}, 
+             Ticks -> {Automatic, Automatic}], 
+            GridBox[{{
+               TagBox[
+                TemplateBox[{
+                  RowBox[{
+                    TagBox["\"Time: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox[
+                    TemplateBox[{
+                    RowBox[{"\"10 Oct 2024\""}], 
+                    RowBox[{"DateObject", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"2024", ",", "10", ",", "10"}], "}"}], ",", 
+                    "\"Day\"", ",", "\"Gregorian\"", ",", "None", ",", 
+                    "\"UT\"", ",", 
+                    RowBox[{"{", 
+                    
+                    RowBox[{"\"Day\"", ",", "\" \"", ",", 
+                    "\"MonthNameShort\"", ",", "\" \"", ",", "\"Year\""}], 
+                    "}"}]}], "]"}]}, "DateObject", Editable -> False], 
+                    "SummaryItem"]}], 
+                  RowBox[{
+                    TagBox["\" to \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox[
+                    TemplateBox[{
+                    RowBox[{"\"17 Oct 2024\""}], 
+                    RowBox[{"DateObject", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"2024", ",", "10", ",", "17"}], "}"}], ",", 
+                    "\"Day\"", ",", "\"Gregorian\"", ",", "None", ",", 
+                    "\"UT\"", ",", 
+                    RowBox[{"{", 
+                    
+                    RowBox[{"\"Day\"", ",", "\" \"", ",", 
+                    "\"MonthNameShort\"", ",", "\" \"", ",", "\"Year\""}], 
+                    "}"}]}], "]"}]}, "DateObject", Editable -> False], 
+                    "SummaryItem"]}]}, "RowDefault"], "SummaryItem"], 
+               "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox["\"Data points: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["8", "SummaryItem"]}], "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox["\"Regular: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["True", "SummaryItem"]}], 
+               RowBox[{
+                 TagBox["\"Output dimension: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["1", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Metadata: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["None", "SummaryItem"]}], 
+               RowBox[{
+                 TagBox["\"Minimum increment: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  RowBox[{"{", 
+                    RowBox[{"1", ",", "\"Day\""}], "}"}], "SummaryItem"]}]}, {
+              
+               TagBox["\"\"", "SummaryItem"], 
+               RowBox[{
+                 TagBox["\"Resampling: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  RowBox[{"{", 
+                    RowBox[{"\"Interpolation\"", ",", "1"}], "}"}], 
+                  "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  TemporalData[TimeSeries, {{
+     QuantityArray[
+      StructuredArray`StructuredData[{
+       8}, {{56.5, 57.300000000000004`, 64.3, 66.7, 63.2, 52.400000000000006`,
+         52.900000000000006`, 51.800000000000004`}, "DegreesFahrenheit", {{
+        1}}}]]}, {
+     TemporalData`DateSpecification[{2024, 10, 10, 0, 0, 0}, {2024, 10, 17, 0,
+       0, 0}, {1, "Day"}]}, 1, {"Continuous", 1}, {"Discrete", 1}, 1, {
+    ResamplingMethod -> {"Interpolation", InterpolationOrder -> 1}, 
+     ValueDimensions -> 1}}, True, 14.1],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{{3.937580808556816*^9, 3.937580813370511*^9}},
+ CellLabel->"Out[44]=",ExpressionUUID->"a453dda3-7d23-4f11-bfa3-8efc49fade7d"]
+}, Open  ]],
+
+Cell["\<\
+The output of the above command is clearly a time series with 8 data points. \
+We can use the ListLinePlot as follows:\
+\>", "Text",
+ CellChangeTimes->{{3.937580821636167*^9, 
+  3.93758085425001*^9}},ExpressionUUID->"21566ea1-e297-45ca-99ca-\
+687beed3c995"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ListLinePlot", "[", 
+  RowBox[{"WeatherForecastData", "[", "\"\<MeanTemperature\>\"", "]"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.936109640462982*^9, 3.936109780629875*^9}, {
+   3.936109917529079*^9, 3.936109951062006*^9}, {3.936110003197838*^9, 
+   3.936110056432516*^9}, {3.936111106669118*^9, 3.936111115430764*^9}, 
+   3.9361139667088747`*^9},
+ CellLabel->"In[42]:=",ExpressionUUID->"842a7b60-6853-494c-a7ac-5c79173f0aba"],
+
+Cell[BoxData[
+ GraphicsBox[{{}, 
+   InterpretationBox[{
+     TagBox[{{}, {}, 
+       TagBox[
+        {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+          NCache[
+           Rational[7, 360], 0.019444444444444445`]], AbsoluteThickness[2], 
+         LineBox[{{3.9375072*^9, 56.5}, {3.9375936*^9, 57.300000000000004`}, {
+          3.93768*^9, 64.3}, {3.9377664*^9, 66.7}, {3.9378528*^9, 63.2}, {
+          3.9379392*^9, 52.400000000000006`}, {3.9380256*^9, 
+          52.900000000000006`}, {3.938112*^9, 51.800000000000004`}}]},
+        Annotation[#, "Charting`Private`Tag#1"]& ]},
+      {"WolframDynamicHighlight", <|
+       "Label" -> {"XYLabel"}, "Ball" -> {"InterpolatedBall"}|>}], 
+     StyleBox[
+      DynamicBox[(Charting`HighlightActionBox["DynamicHighlight", {}, 
+        Slot["HighlightElements"], 
+        Slot["LayoutOptions"], 
+        Slot["Meta"], 
+        Charting`HighlightActionFunction["DynamicHighlight", {{{}, {}, 
+           Annotation[{
+             Hue[0.67, 0.6, 0.6], 
+             Directive[
+              PointSize[
+               Rational[7, 360]], 
+              RGBColor[0.368417, 0.506779, 0.709798], 
+              AbsoluteThickness[2]], 
+             
+             Line[{{3.9375072*^9, 56.5}, {3.9375936*^9, 
+              57.300000000000004`}, {3.93768*^9, 64.3}, {3.9377664*^9, 
+              66.7}, {3.9378528*^9, 63.2}, {3.9379392*^9, 
+              52.400000000000006`}, {3.9380256*^9, 52.900000000000006`}, {
+              3.938112*^9, 51.800000000000004`}}]}, 
+            "Charting`Private`Tag#1"]}}, <|
+         "HighlightElements" -> <|
+           "Label" -> {"XYLabel"}, "Ball" -> {"InterpolatedBall"}|>, 
+          "LayoutOptions" -> <|
+           "PanelPlotLayout" -> <||>, 
+            "PlotRange" -> {{3.9375072*^9, 3.938112*^9}, {50.972222222222335`,
+              66.7}}, "Frame" -> {{False, False}, {False, False}}, 
+            "AxesOrigin" -> {3.9375072*^9, 50.972222222222335`}, 
+            "ImageSize" -> {360, 360/GoldenRatio}, "Axes" -> {True, True}, 
+            "LabelStyle" -> {}, "AspectRatio" -> GoldenRatio^(-1), 
+            "DefaultStyle" -> {
+              Directive[
+               PointSize[
+                Rational[7, 360]], 
+               RGBColor[0.368417, 0.506779, 0.709798], 
+               AbsoluteThickness[2]]}, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                DateScale[Automatic]["Category"][
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), "ScalingFunctions" -> {{
+                 DateScale[Automatic]["Value"], 
+                 DateScale[Automatic]["Category"]}, {Identity, Identity}}|>, 
+            "Primitives" -> {}, "GCFlag" -> False|>, 
+          "Meta" -> <|
+           "DefaultHighlight" -> {"Dynamic", None}, "Index" -> {}, "Function" -> 
+            ListLinePlot, "GroupHighlight" -> False|>|>]]& )[<|
+        "HighlightElements" -> <|
+          "Label" -> {"XYLabel"}, "Ball" -> {"InterpolatedBall"}|>, 
+         "LayoutOptions" -> <|
+          "PanelPlotLayout" -> <||>, 
+           "PlotRange" -> {{3.9375072*^9, 3.938112*^9}, {50.972222222222335`, 
+            66.7}}, "Frame" -> {{False, False}, {False, False}}, 
+           "AxesOrigin" -> {3.9375072*^9, 50.972222222222335`}, 
+           "ImageSize" -> {360, 360/GoldenRatio}, "Axes" -> {True, True}, 
+           "LabelStyle" -> {}, "AspectRatio" -> GoldenRatio^(-1), 
+           "DefaultStyle" -> {
+             Directive[
+              PointSize[
+               Rational[7, 360]], 
+              RGBColor[0.368417, 0.506779, 0.709798], 
+              AbsoluteThickness[2]]}, 
+           "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+               DateScale[Automatic]["Category"][
+                Part[#, 1]], 
+               Identity[
+                Part[#, 2]]}& ), "ScalingFunctions" -> {{
+                DateScale[Automatic]["Value"], 
+                DateScale[Automatic]["Category"]}, {Identity, Identity}}|>, 
+           "Primitives" -> {}, "GCFlag" -> False|>, 
+         "Meta" -> <|
+          "DefaultHighlight" -> {"Dynamic", None}, "Index" -> {}, "Function" -> 
+           ListLinePlot, "GroupHighlight" -> False|>|>],
+       ImageSizeCache->{{4.503599627370496*^15, -4.503599627370496*^15}, {
+        4.503599627370496*^15, -4.503599627370496*^15}}],
+      Selectable->False]},
+    Annotation[{{{}, {}, 
+       Annotation[{
+         Hue[0.67, 0.6, 0.6], 
+         Directive[
+          PointSize[
+           Rational[7, 360]], 
+          RGBColor[0.368417, 0.506779, 0.709798], 
+          AbsoluteThickness[2]], 
+         Line[{{3.9375072*^9, 56.5}, {3.9375936*^9, 57.300000000000004`}, {
+          3.93768*^9, 64.3}, {3.9377664*^9, 66.7}, {3.9378528*^9, 63.2}, {
+          3.9379392*^9, 52.400000000000006`}, {3.9380256*^9, 
+          52.900000000000006`}, {3.938112*^9, 51.800000000000004`}}]}, 
+        "Charting`Private`Tag#1"]}}, <|
+     "HighlightElements" -> <|
+       "Label" -> {"XYLabel"}, "Ball" -> {"InterpolatedBall"}|>, 
+      "LayoutOptions" -> <|
+       "PanelPlotLayout" -> <||>, 
+        "PlotRange" -> {{3.9375072*^9, 3.938112*^9}, {50.972222222222335`, 
+         66.7}}, "Frame" -> {{False, False}, {False, False}}, 
+        "AxesOrigin" -> {3.9375072*^9, 50.972222222222335`}, 
+        "ImageSize" -> {360, 360/GoldenRatio}, "Axes" -> {True, True}, 
+        "LabelStyle" -> {}, "AspectRatio" -> GoldenRatio^(-1), "DefaultStyle" -> {
+          Directive[
+           PointSize[
+            Rational[7, 360]], 
+           RGBColor[0.368417, 0.506779, 0.709798], 
+           AbsoluteThickness[2]]}, 
+        "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+            DateScale[Automatic]["Category"][
+             Part[#, 1]], 
+            Identity[
+             Part[#, 2]]}& ), "ScalingFunctions" -> {{
+             DateScale[Automatic]["Value"], 
+             DateScale[Automatic]["Category"]}, {Identity, Identity}}|>, 
+        "Primitives" -> {}, "GCFlag" -> False|>, 
+      "Meta" -> <|
+       "DefaultHighlight" -> {"Dynamic", None}, "Index" -> {}, "Function" -> 
+        ListLinePlot, "GroupHighlight" -> False|>|>, 
+     "DynamicHighlight"]], {{}, {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{None, None},
+  AxesOrigin->{3.9375072*^9, 50.972222222222335`},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {
+     Charting`ScaledTicks[{
+       DateScale[Automatic]["Value"], 
+       DateScale[Automatic]["Category"]}], 
+     Charting`ScaledFrameTicks[{
+       DateScale[Automatic]["Value"], 
+       DateScale[Automatic]["Category"]}]}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  Method->{
+   "AxisPadding" -> Scaled[0.02], "DefaultBoundaryStyle" -> Automatic, 
+    "DefaultGraphicsInteraction" -> {
+     "Version" -> 1.2, "TrackMousePosition" -> {True, False}, 
+      "Effects" -> {
+       "Highlight" -> {"ratio" -> 2}, "HighlightPoint" -> {"ratio" -> 2}, 
+        "Droplines" -> {
+         "freeformCursorMode" -> True, 
+          "placement" -> {"x" -> "All", "y" -> "None"}}}}, "DefaultMeshStyle" -> 
+    AbsolutePointSize[6], "DefaultPlotStyle" -> {
+      Directive[
+       RGBColor[0.368417, 0.506779, 0.709798], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.880722, 0.611041, 0.142051], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.560181, 0.691569, 0.194885], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.922526, 0.385626, 0.209179], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.528488, 0.470624, 0.701351], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.772079, 0.431554, 0.102387], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.363898, 0.618501, 0.782349], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[1, 0.75, 0], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.647624, 0.37816, 0.614037], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.571589, 0.586483, 0.], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.915, 0.3325, 0.2125], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.40082222609352647`, 0.5220066643438841, 0.85], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.9728288904374106, 0.621644452187053, 0.07336199581899142], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.736782672705901, 0.358, 0.5030266573755369], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965], 
+       AbsoluteThickness[2]]}, "DomainPadding" -> Scaled[0.02], 
+    "RangePadding" -> Scaled[0.05], "OptimizePlotMarkers" -> True, 
+    "IncludeHighlighting" -> "CurrentSet", "HighlightStyle" -> Automatic, 
+    "OptimizePlotMarkers" -> True, 
+    "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        DateScale[Automatic]["Category"][
+         Part[#, 1]], 
+        Identity[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        DateScale[Automatic]["Category"][
+         Part[#, 1]], 
+        Identity[
+         Part[#, 2]]}& )}},
+  PlotRange->{{3.9375072*^9, 3.938112*^9}, {50.972222222222335`, 66.7}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.05], 
+     Scaled[0.05]}},
+  Ticks->FrontEndValueCache[{
+     Charting`ScaledTicks[{
+       DateScale[Automatic]["Value"], 
+       DateScale[Automatic]["Category"]}, {
+       DateScale[Automatic]["Value"], 
+       DateScale[Automatic]["Category"]}, "Nice", WorkingPrecision -> 
+      15.954589770191003`, RotateLabel -> 0], Automatic}, {{{3.9373344*^9, 
+       FormBox[
+        StyleBox["\"Oct 08\"", 
+         Directive[], {}, StripOnInput -> False], TraditionalForm], Automatic, 
+       Directive[]}, {3.9375072*^9, 
+       FormBox[
+        StyleBox["\"Oct 10\"", 
+         Directive[], {}, StripOnInput -> False], TraditionalForm], Automatic, 
+       Directive[]}, {3.93768*^9, 
+       FormBox[
+        StyleBox["\"Oct 12\"", 
+         Directive[], {}, StripOnInput -> False], TraditionalForm], Automatic, 
+       Directive[]}, {3.9378528*^9, 
+       FormBox[
+        StyleBox["\"Oct 14\"", 
+         Directive[], {}, StripOnInput -> False], TraditionalForm], Automatic, 
+       Directive[]}, {3.9380256*^9, 
+       FormBox[
+        StyleBox["\"Oct 16\"", 
+         Directive[], {}, StripOnInput -> False], TraditionalForm], Automatic, 
+       Directive[]}, {3.9381984*^9, 
+       FormBox[
+        StyleBox["\"Oct 18\"", 
+         Directive[], {}, StripOnInput -> False], TraditionalForm], Automatic, 
+       Directive[]}, {3.9373344*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9373776*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9374208*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.937464*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9375072*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9375072*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9375504*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9375936*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9376368*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.93768*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.93768*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9377232*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9377664*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9378096*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9378528*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9378528*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.937896*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9379392*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9379824*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9380256*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9380256*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9380688*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.938112*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9381552*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9381984*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}}, Automatic}]]], "Output",
+ CellChangeTimes->{3.9361139690458384`*^9, 3.93757988156244*^9},
+ CellLabel->"Out[42]=",ExpressionUUID->"f917dc09-1ee3-4f30-b5d2-ddcb20abf3b0"]
+}, Open  ]],
+
+Cell["\<\
+The ListLinePlot command can take the time series as input and output the \
+Mean Temperature values over a 7 day forecast. You can think of the time \
+series input as a list of x-y coordinate points such that x = {Oct 10, Oct \
+11, .... Oct 17} which is 7 days in the future. And you can think of y = { \
+56.5 degrees Celsius, 57 degrees Celsius, .... 43 degrees Celsius} and that \
+gets outputted like we see above.
+
+This is a simple way of seeing the average temperature trends over a 7 day \
+period. Notice we didn\[CloseCurlyQuote]t have to specify the date range. It \
+automatically assumes one week forecast.\
+\>", "Text",
+ CellChangeTimes->{{3.937580750546967*^9, 3.937580791389921*^9}, {
+  3.937580859487167*^9, 3.937581117233042*^9}, {3.9375811479825974`*^9, 
+  3.937581322277183*^9}, {3.9375813783666162`*^9, 
+  3.93758143564282*^9}},ExpressionUUID->"9ddc4523-ea54-4f84-b58c-\
+f3ef21ef23fe"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.937581440595542*^9, 
+  3.93758144155597*^9}},ExpressionUUID->"b28fb8e1-0b43-4c42-b56c-\
+e016671753fe"],
+
+Cell[TextData[{
+ StyleBox["TRY",
+  FontWeight->"Bold"],
+ " ",
+ StyleBox["Use",
+  FontVariations->{"Underline"->True}],
+ " ListLinePlot to create a plot that showcases the average temperatures for \
+the next month time period. ",
+ StyleBox["Hint",
+  FontSlant->"Italic"],
+ ": You need more than one parameter for the WeatherForecastData command."
+}], "Text",
+ CellChangeTimes->{
+  3.937581446748869*^9, {3.9375841125589533`*^9, 
+   3.9375841138291883`*^9}},ExpressionUUID->"94d2ae06-055e-4a56-9e09-\
+acee8286ba16"],
+
+Cell["\<\
+Another command to plot and visualize data is ListPlot. ListPlot is similar \
+to ListLinePlot except ListPlot doesn\[CloseCurlyQuote]t connect the data \
+points on the x-y graph. The outputs usually look like the below graph.
+You can get artistic with ListPlot and ListLinePlot by fine-tuning the color \
+of the points, the size of the points and even labelling.\
+\>", "Text",
+ CellChangeTimes->{{3.937581486769437*^9, 3.937581513371068*^9}, {
+  3.937581554652135*^9, 
+  3.9375816703155746`*^9}},ExpressionUUID->"7dd8b0fa-d5df-40ad-94ff-\
+41c51e6e929c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ListPlot", " ", "[", 
+  RowBox[{
+   RowBox[{"WeatherForecastData", "[", "\"\<WindSpeed\>\"", "]"}], ",", " ", 
+   RowBox[{
+   "PlotLabel", "->", " ", "\"\<Wind Speeds Forecasted in New York\>\""}], 
+   ",", " ", 
+   RowBox[{"PlotStyle", " ", "->", " ", 
+    RowBox[{"{", 
+     RowBox[{"PointSize", "[", "0.02", "]"}], "}"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.9361136205338097`*^9, 3.936113692693728*^9}, 
+   3.936113733828836*^9, 3.936113982814393*^9, {3.936114051159693*^9, 
+   3.93611405606664*^9}, {3.936114218791903*^9, 3.936114279251264*^9}, {
+   3.9361143251036673`*^9, 3.936114555664035*^9}, {3.936114590595563*^9, 
+   3.936114598388825*^9}, {3.936114638818639*^9, 3.9361146411139517`*^9}, {
+   3.936114688776696*^9, 3.936114787850319*^9}},
+ CellLabel->
+  "In[206]:=",ExpressionUUID->"33323335-3ced-4d6b-853f-f260a82e157a"],
+
+Cell[BoxData[
+ GraphicsBox[{{}, 
+   InterpretationBox[{
+     TagBox[
+      TagBox[
+       {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.02], 
+        AbsoluteThickness[2], PointBox[CompressedData["
+1:eJxV0k0oRFEUB/CJDdIkClOM+dCY8THJG9MkNLKxQJq5ycZmyphEysYGaVJK
+ScnnNKWUzSSElY3SJEQ2NiQkGwuSJrGRe47uv+6t1+vXuefc88679shoaCDL
+ZDL55UNvuVJz4bc2n0GrKij9sSB9dUmrjuxf1j2RgGvIJxuwh5yzJf1f2kvu
+TkkPRmm5yUu70ol1Wpx/d6jyO31k25GKW9jRY+xvJG+n0S/HP89xPjtwjXq8
+f+oG53M8fYv+DHLeo16v5wVx9sqrNIcPGsj378pGPdmRQf1acuwH/fA8d35R
+v4KcyRaqfjG5KVeofCt52ixUfhn5tAh2kvMtsJ0csqKeg7zmFGpe5eQHN/YX
+kiu9cCl5yBDqe7jeXkCofkvIXy16v83tqM/xeAfM/Z11IZ//rzkstPsl+lCP
+71OiH3H2UwRxznfFYJ7v8AhcTd4fg/l+fY/r8dZJzJfPn4kjzr6YxTxc5IJ5
+xHkevYvIt5GTq0L7n89Jfb97E/YE/wCD4hQp
+         "]]},
+       Annotation[#, "Charting`Private`Tag#1"]& ],
+      {"WolframDynamicHighlight", <|
+       "Label" -> {"XYLabel"}, "Ball" -> {"IndicatedBall"}|>}], 
+     StyleBox[
+      DynamicBox[(Charting`HighlightActionBox["DynamicHighlight", {}, 
+        Slot["HighlightElements"], 
+        Slot["LayoutOptions"], 
+        Slot["Meta"], 
+        Charting`HighlightActionFunction["DynamicHighlight", {{
+           Annotation[{
+             Directive[
+              RGBColor[0.368417, 0.506779, 0.709798], 
+              AbsoluteThickness[2], 
+              PointSize[0.02]], 
+             Point[CompressedData["
+1:eJxV0k0oRFEUB/CJDdIkClOM+dCY8THJG9MkNLKxQJq5ycZmyphEysYGaVJK
+ScnnNKWUzSSElY3SJEQ2NiQkGwuSJrGRe47uv+6t1+vXuefc88679shoaCDL
+ZDL55UNvuVJz4bc2n0GrKij9sSB9dUmrjuxf1j2RgGvIJxuwh5yzJf1f2kvu
+TkkPRmm5yUu70ol1Wpx/d6jyO31k25GKW9jRY+xvJG+n0S/HP89xPjtwjXq8
+f+oG53M8fYv+DHLeo16v5wVx9sqrNIcPGsj378pGPdmRQf1acuwH/fA8d35R
+v4KcyRaqfjG5KVeofCt52ixUfhn5tAh2kvMtsJ0csqKeg7zmFGpe5eQHN/YX
+kiu9cCl5yBDqe7jeXkCofkvIXy16v83tqM/xeAfM/Z11IZ//rzkstPsl+lCP
+71OiH3H2UwRxznfFYJ7v8AhcTd4fg/l+fY/r8dZJzJfPn4kjzr6YxTxc5IJ5
+xHkevYvIt5GTq0L7n89Jfb97E/YE/wCD4hQp
+              "]]}, "Charting`Private`Tag#1"]}}, <|
+         "HighlightElements" -> <|
+           "Label" -> {"XYLabel"}, "Ball" -> {"IndicatedBall"}|>, 
+          "LayoutOptions" -> <|
+           "PanelPlotLayout" -> <||>, 
+            "PlotRange" -> {{3.936114*^9, 3.9366864*^9}, {0, 21.6}}, 
+            "Frame" -> {{False, False}, {False, False}}, 
+            "AxesOrigin" -> {3.936114*^9, 0}, 
+            "ImageSize" -> {360, 360/GoldenRatio}, "Axes" -> {True, True}, 
+            "LabelStyle" -> {}, "AspectRatio" -> GoldenRatio^(-1), 
+            "DefaultStyle" -> {
+              Directive[
+               RGBColor[0.368417, 0.506779, 0.709798], 
+               AbsoluteThickness[2], 
+               PointSize[0.02]]}, 
+            "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+                DateScale[Automatic]["Category"][
+                 Part[#, 1]], 
+                Identity[
+                 Part[#, 2]]}& ), "ScalingFunctions" -> {{
+                 DateScale[Automatic]["Value"], 
+                 DateScale[Automatic]["Category"]}, {Identity, Identity}}|>, 
+            "Primitives" -> {}, "GCFlag" -> False|>, 
+          "Meta" -> <|
+           "DefaultHighlight" -> {"Dynamic", None}, "Index" -> {}, "Function" -> 
+            ListPlot, "GroupHighlight" -> False|>|>]]& )[<|
+        "HighlightElements" -> <|
+          "Label" -> {"XYLabel"}, "Ball" -> {"IndicatedBall"}|>, 
+         "LayoutOptions" -> <|
+          "PanelPlotLayout" -> <||>, 
+           "PlotRange" -> {{3.936114*^9, 3.9366864*^9}, {0, 21.6}}, 
+           "Frame" -> {{False, False}, {False, False}}, 
+           "AxesOrigin" -> {3.936114*^9, 0}, 
+           "ImageSize" -> {360, 360/GoldenRatio}, "Axes" -> {True, True}, 
+           "LabelStyle" -> {}, "AspectRatio" -> GoldenRatio^(-1), 
+           "DefaultStyle" -> {
+             Directive[
+              RGBColor[0.368417, 0.506779, 0.709798], 
+              AbsoluteThickness[2], 
+              PointSize[0.02]]}, 
+           "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+               DateScale[Automatic]["Category"][
+                Part[#, 1]], 
+               Identity[
+                Part[#, 2]]}& ), "ScalingFunctions" -> {{
+                DateScale[Automatic]["Value"], 
+                DateScale[Automatic]["Category"]}, {Identity, Identity}}|>, 
+           "Primitives" -> {}, "GCFlag" -> False|>, 
+         "Meta" -> <|
+          "DefaultHighlight" -> {"Dynamic", None}, "Index" -> {}, "Function" -> 
+           ListPlot, "GroupHighlight" -> False|>|>],
+       ImageSizeCache->{{4.503599627370496*^15, -4.503599627370496*^15}, {
+        4.503599627370496*^15, -4.503599627370496*^15}}],
+      Selectable->False]},
+    Annotation[{{
+       Annotation[{
+         Directive[
+          RGBColor[0.368417, 0.506779, 0.709798], 
+          AbsoluteThickness[2], 
+          PointSize[0.02]], 
+         Point[CompressedData["
+1:eJxV0k0oRFEUB/CJDdIkClOM+dCY8THJG9MkNLKxQJq5ycZmyphEysYGaVJK
+ScnnNKWUzSSElY3SJEQ2NiQkGwuSJrGRe47uv+6t1+vXuefc88679shoaCDL
+ZDL55UNvuVJz4bc2n0GrKij9sSB9dUmrjuxf1j2RgGvIJxuwh5yzJf1f2kvu
+TkkPRmm5yUu70ol1Wpx/d6jyO31k25GKW9jRY+xvJG+n0S/HP89xPjtwjXq8
+f+oG53M8fYv+DHLeo16v5wVx9sqrNIcPGsj378pGPdmRQf1acuwH/fA8d35R
+v4KcyRaqfjG5KVeofCt52ixUfhn5tAh2kvMtsJ0csqKeg7zmFGpe5eQHN/YX
+kiu9cCl5yBDqe7jeXkCofkvIXy16v83tqM/xeAfM/Z11IZ//rzkstPsl+lCP
+71OiH3H2UwRxznfFYJ7v8AhcTd4fg/l+fY/r8dZJzJfPn4kjzr6YxTxc5IJ5
+xHkevYvIt5GTq0L7n89Jfb97E/YE/wCD4hQp
+          "]]}, "Charting`Private`Tag#1"]}}, <|
+     "HighlightElements" -> <|
+       "Label" -> {"XYLabel"}, "Ball" -> {"IndicatedBall"}|>, 
+      "LayoutOptions" -> <|
+       "PanelPlotLayout" -> <||>, 
+        "PlotRange" -> {{3.936114*^9, 3.9366864*^9}, {0, 21.6}}, 
+        "Frame" -> {{False, False}, {False, False}}, 
+        "AxesOrigin" -> {3.936114*^9, 0}, 
+        "ImageSize" -> {360, 360/GoldenRatio}, "Axes" -> {True, True}, 
+        "LabelStyle" -> {}, "AspectRatio" -> GoldenRatio^(-1), "DefaultStyle" -> {
+          Directive[
+           RGBColor[0.368417, 0.506779, 0.709798], 
+           AbsoluteThickness[2], 
+           PointSize[0.02]]}, 
+        "HighlightLabelingFunctions" -> <|"CoordinatesToolOptions" -> ({
+            DateScale[Automatic]["Category"][
+             Part[#, 1]], 
+            Identity[
+             Part[#, 2]]}& ), "ScalingFunctions" -> {{
+             DateScale[Automatic]["Value"], 
+             DateScale[Automatic]["Category"]}, {Identity, Identity}}|>, 
+        "Primitives" -> {}, "GCFlag" -> False|>, 
+      "Meta" -> <|
+       "DefaultHighlight" -> {"Dynamic", None}, "Index" -> {}, "Function" -> 
+        ListPlot, "GroupHighlight" -> False|>|>, 
+     "DynamicHighlight"]], {{}, {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{None, None},
+  AxesOrigin->{3.936114*^9, 0},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {
+     Charting`ScaledTicks[{
+       DateScale[Automatic]["Value"], 
+       DateScale[Automatic]["Category"]}], 
+     Charting`ScaledFrameTicks[{
+       DateScale[Automatic]["Value"], 
+       DateScale[Automatic]["Category"]}]}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  Method->{
+   "AxisPadding" -> Scaled[0.02], "DefaultBoundaryStyle" -> Automatic, 
+    "DefaultGraphicsInteraction" -> {
+     "Version" -> 1.2, "TrackMousePosition" -> {True, False}, 
+      "Effects" -> {
+       "Highlight" -> {"ratio" -> 2}, "HighlightPoint" -> {"ratio" -> 2}, 
+        "Droplines" -> {
+         "freeformCursorMode" -> True, 
+          "placement" -> {"x" -> "All", "y" -> "None"}}}}, "DefaultMeshStyle" -> 
+    AbsolutePointSize[6], "DefaultPlotStyle" -> {
+      Directive[
+       RGBColor[0.368417, 0.506779, 0.709798], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.880722, 0.611041, 0.142051], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.560181, 0.691569, 0.194885], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.922526, 0.385626, 0.209179], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.528488, 0.470624, 0.701351], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.772079, 0.431554, 0.102387], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.363898, 0.618501, 0.782349], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[1, 0.75, 0], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.647624, 0.37816, 0.614037], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.571589, 0.586483, 0.], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.915, 0.3325, 0.2125], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.40082222609352647`, 0.5220066643438841, 0.85], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.9728288904374106, 0.621644452187053, 0.07336199581899142], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.736782672705901, 0.358, 0.5030266573755369], 
+       AbsoluteThickness[2]], 
+      Directive[
+       RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965], 
+       AbsoluteThickness[2]]}, "DomainPadding" -> Scaled[0.02], 
+    "PointSizeFunction" -> "SmallPointSize", "RangePadding" -> Scaled[0.05], 
+    "OptimizePlotMarkers" -> True, "IncludeHighlighting" -> "CurrentPoint", 
+    "HighlightStyle" -> Automatic, "OptimizePlotMarkers" -> True, 
+    "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        DateScale[Automatic]["Category"][
+         Part[#, 1]], 
+        Identity[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        DateScale[Automatic]["Category"][
+         Part[#, 1]], 
+        Identity[
+         Part[#, 2]]}& )}},
+  PlotLabel->FormBox[
+   "\"Wind Speeds Forecasted in New York\"", TraditionalForm],
+  PlotRange->{{3.936114*^9, 3.9366864*^9}, {0, 21.6}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.02], 
+     Scaled[0.05]}},
+  Ticks->FrontEndValueCache[{
+     Charting`ScaledTicks[{
+       DateScale[Automatic]["Value"], 
+       DateScale[Automatic]["Category"]}, {
+       DateScale[Automatic]["Value"], 
+       DateScale[Automatic]["Category"]}, "Nice", WorkingPrecision -> 
+      15.954589770191003`, RotateLabel -> 0], Automatic}, {{{3.935952*^9, 
+       FormBox[
+        StyleBox["\"Sep 22\"", 
+         Directive[], {}, StripOnInput -> False], TraditionalForm], Automatic, 
+       Directive[]}, {3.9361248*^9, 
+       FormBox[
+        StyleBox["\"Sep 24\"", 
+         Directive[], {}, StripOnInput -> False], TraditionalForm], Automatic, 
+       Directive[]}, {3.9362976*^9, 
+       FormBox[
+        StyleBox["\"Sep 26\"", 
+         Directive[], {}, StripOnInput -> False], TraditionalForm], Automatic, 
+       Directive[]}, {3.9364704*^9, 
+       FormBox[
+        StyleBox["\"Sep 28\"", 
+         Directive[], {}, StripOnInput -> False], TraditionalForm], Automatic, 
+       Directive[]}, {3.9366432*^9, 
+       FormBox[
+        StyleBox["\"Sep 30\"", 
+         Directive[], {}, StripOnInput -> False], TraditionalForm], Automatic, 
+       Directive[]}, {3.935952*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9359952*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9360384*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9360816*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9361248*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9361248*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.936168*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9362112*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9362544*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9362976*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9362976*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9363408*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.936384*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9364272*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9364704*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9364704*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9365136*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9365568*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9366*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}, {3.9366432*^9, 
+       FormBox[
+        TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], Automatic, 
+       Directive[]}}, Automatic}]]], "Output",
+ CellChangeTimes->{
+  3.936114057282251*^9, 3.936114262519397*^9, {3.936114370403059*^9, 
+   3.936114457898497*^9}, {3.9361145097161207`*^9, 3.936114556621435*^9}, {
+   3.936114594394404*^9, 3.936114600346121*^9}, 3.936114790293449*^9},
+ CellLabel->
+  "Out[206]=",ExpressionUUID->"654e82f3-f795-4a56-bb7a-9eb09f00cf0e"]
+}, Open  ]],
+
+Cell[TextData[{
+ StyleBox["TRY",
+  FontWeight->"Bold"],
+ " Edit the ListPlot command to make the points smaller and change the color \
+to red. Also make a different plot for Humidity and Temperature"
+}], "Text",
+ CellChangeTimes->{{3.9375816898743477`*^9, 3.937581711124288*^9}, {
+  3.93758176411458*^9, 
+  3.937581787326578*^9}},ExpressionUUID->"f1c5e1d1-1f86-4e9a-81e9-\
+95cab7623a01"],
+
+Cell[TextData[{
+ "If you hover over the data points, you can read the precise speeds at a \
+specific date and time it occurred. For more plot beautification, see ",
+ StyleBox[ButtonBox["PlotStyle",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["https://reference.wolfram.com/language/ref/PlotStyle.html"], None},
+  ButtonNote->"https://reference.wolfram.com/language/ref/PlotStyle.html"],
+  FontWeight->"Bold"],
+ StyleBox[".",
+  FontWeight->"Bold"]
+}], "Text",
+ CellChangeTimes->{{3.936116897726297*^9, 3.936116916814735*^9}, {
+  3.9361169473170958`*^9, 3.93611701117028*^9}, {3.93611704912858*^9, 
+  3.936117059034446*^9}, {3.937581728428458*^9, 
+  3.937581761247752*^9}},ExpressionUUID->"78398661-acc6-4171-b664-\
+cdcb7f95ffb0"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["1.5 Weather Properties Commands", "Section",
+ CellChangeTimes->{{3.9361150926226807`*^9, 3.9361151273469257`*^9}, {
+  3.936117455764022*^9, 3.936117455832575*^9}, {3.937581828722699*^9, 
+  3.9375818495268087`*^9}, {3.937581968618273*^9, 
+  3.9375820075658903`*^9}},ExpressionUUID->"b228e9ae-de27-4290-870e-\
+434642f66255"],
+
+Cell["\<\
+There are many properties of the weather that are useful to know when \
+collecting and analyzing the data. The previous commands retrieving data are \
+sometimes complicated. Sometimes we may way to know one simple weather \
+property currently. We can do this using their own special commands.
+
+Look at the commands below and notice that some commands do not have any \
+input parameters in the square brackets [     ]. If you run it and get a \
+value it means you can use it without necessarily worrying about inputs. \
+\>", "Text",
+ CellChangeTimes->{{3.936115136350246*^9, 3.9361153309946327`*^9}, {
+  3.93611601426026*^9, 3.9361160903693027`*^9}, {3.936116189683325*^9, 
+  3.9361161912021637`*^9}, {3.936118183365288*^9, 3.936118205350869*^9}, {
+  3.937581872160409*^9, 3.937581965573945*^9}, {3.93758201437492*^9, 
+  3.937582173584715*^9}},ExpressionUUID->"37d46c77-ade4-4b2c-be20-\
+59512e323868"],
+
+Cell[CellGroupData[{
+
+Cell["Run the commands below", "Subsection",
+ CellChangeTimes->{{3.936116118351582*^9, 
+  3.9361161467903767`*^9}},ExpressionUUID->"4e15a9b7-7361-4fe3-9f8a-\
+3143a36c339f"],
+
+Cell["First try to figure out what it does before you run it", "Text",
+ CellChangeTimes->{{3.936116161638649*^9, 3.936116186368102*^9}, {
+  3.937582183702566*^9, 
+  3.937582185226763*^9}},ExpressionUUID->"11ba5d05-dec9-41e4-be99-\
+37dc6a75f5a6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"WindVectorData", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.936114988596045*^9, 3.936114994222323*^9}},
+ CellLabel->"In[45]:=",ExpressionUUID->"469ffa0c-298a-47b2-b722-d4af090f2050"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   TemplateBox[{"11.7905744439639`", 
+     RowBox[{
+      "\"mi\"", "\[InvisibleSpace]", "\"/\"", "\[InvisibleSpace]", "\"h\""}], 
+     "miles per hour", 
+     FractionBox["\"Miles\"", "\"Hours\""]},
+    "Quantity"], ",", 
+   TemplateBox[{
+     RowBox[{"-", "14.05145945234346`"}], 
+     RowBox[{
+      "\"mi\"", "\[InvisibleSpace]", "\"/\"", "\[InvisibleSpace]", "\"h\""}], 
+     "miles per hour", 
+     FractionBox["\"Miles\"", "\"Hours\""]},
+    "Quantity"]}], "}"}]], "Output",
+ CellChangeTimes->{3.9375821899990063`*^9},
+ CellLabel->"Out[45]=",ExpressionUUID->"19a7f4da-036b-49b3-b3ca-46aca13914fd"]
+}, Open  ]],
+
+Cell[TextData[{
+ "WindVectorData gives you the vector of the wind of your current location \
+and the current time at that location. It uses ",
+ ButtonBox["$GeoLocation",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["https://reference.wolfram.com/language/ref/$GeoLocation.html"], None},
+  ButtonNote->
+   "https://reference.wolfram.com/language/ref/$GeoLocation.html"],
+ " and ",
+ ButtonBox["$TimeZone",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["https://reference.wolfram.com/language/ref/$TimeZone.html"], None},
+  ButtonNote->"https://reference.wolfram.com/language/ref/$TimeZone.html"],
+ " to determine these values. Click on each to learn more. \nNotice the units \
+assigned automatically. Recall that we discussed UnitConvert, you can use it \
+to change the units. If you don\[CloseCurlyQuote]t specify the new units you \
+want, it assumes you want Standard Units. \n\n",
+ StyleBox["TRY",
+  FontWeight->"Bold"],
+ " Running the below command to see the change in units. What units did you \
+think it would give?"
+}], "Text",
+ CellChangeTimes->{{3.937582195228693*^9, 3.93758235456513*^9}, {
+  3.937582390459445*^9, 3.937582403570735*^9}, {3.937582452310069*^9, 
+  3.937582537546301*^9}, {3.937582578290348*^9, 
+  3.937582624933148*^9}},ExpressionUUID->"300ff980-c9d7-4b2e-8da9-\
+8e3734227e55"],
+
+Cell[BoxData[
+ RowBox[{"UnitConvert", "[", 
+  RowBox[{"WindVectorData", "[", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.936115013182612*^9, 3.936115044062199*^9}, {
+   3.9361157786845007`*^9, 3.936115782109894*^9}, 3.9361159075760527`*^9},
+ CellLabel->"In[46]:=",ExpressionUUID->"b1bb9059-d2b4-4152-9af5-6f0f0e3fc187"],
+
+Cell["\<\
+The following command also has the same concept of no inputs. It assumes your \
+current location, current time and produces a measurement.\
+\>", "Text",
+ CellChangeTimes->{{3.937582641719038*^9, 
+  3.9375826794156647`*^9}},ExpressionUUID->"86cee395-b4fa-4886-abcd-\
+80f80004f618"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AirPressureData", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.936115635588305*^9, 3.9361156401455097`*^9}},
+ CellLabel->"In[48]:=",ExpressionUUID->"997f33a8-c208-4570-b1d7-5a41310774b3"],
+
+Cell[BoxData[
+ TemplateBox[{"30.`", "\"inHg\"", "inches of mercury", "\"InchesOfMercury\""},
+  
+  "Quantity"]], "Output",
+ CellChangeTimes->{3.937582635555984*^9},
+ CellLabel->"Out[48]=",ExpressionUUID->"6788d5e3-b298-4b46-9539-e51ff59aaf19"]
+}, Open  ]],
+
+Cell["Once more, we can use UnitConvert to get Standard Units.", "Text",
+ CellChangeTimes->{{3.9375826838567133`*^9, 
+  3.937582722352029*^9}},ExpressionUUID->"2d3107ba-c228-4096-9490-\
+17de972c19fd"],
+
+Cell[BoxData[
+ RowBox[{"UnitConvert", "[", 
+  RowBox[{"AirPressureData", "[", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.936115695759651*^9, 3.936115775762957*^9}, 
+   3.9361159102076197`*^9},
+ CellLabel->"In[49]:=",ExpressionUUID->"5515ab7d-6d52-4e62-958b-f0683dbbbb34"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Knowledge Check", "Section",
+ CellChangeTimes->{{3.9361175481390944`*^9, 3.936117554378437*^9}, {
+  3.9361180637639017`*^9, 
+  3.936118066971202*^9}},ExpressionUUID->"1dfaa6f9-5b57-40c0-b308-\
+7b325f0f59c4"],
+
+Cell["\<\
+At this point in the tutorial, we have seen how to retrieve past data, \
+predict future data, specifying input parameters like date range, and \
+plotting the data found. We learned how Mathematica can take a time series \
+data set and plots it on a graph. We also learned that sometimes inputs are \
+not required to get current weather data property by using more specific \
+commands. 
+
+Try the following challenge questions using the above tutorial as your guide\
+\>", "Text",
+ CellChangeTimes->{{3.936117617679077*^9, 3.9361176352467012`*^9}, {
+  3.9361182598579607`*^9, 3.936118260852676*^9}, {3.9375767150992613`*^9, 
+  3.937576715302456*^9}, {3.9375827250534153`*^9, 
+  3.937582838096033*^9}},ExpressionUUID->"f161a2e5-d820-4f85-bcd2-\
+4ab2a2ab5796"],
+
+Cell[CellGroupData[{
+
+Cell["Question 1", "Subsection",
+ CellChangeTimes->{{3.9361175821974907`*^9, 3.9361175998341923`*^9}, {
+  3.936117645755158*^9, 
+  3.936117650252295*^9}},ExpressionUUID->"2c488024-076c-46d7-afff-\
+fb04aac5aeea"],
+
+Cell["\<\
+Retrieve and Plot the Average Temperature data in New York City yearly from \
+1990 to 2020 in steps of 1 year. \
+\>", "Text",
+ CellChangeTimes->{{3.936117653082808*^9, 
+  3.9361177497897673`*^9}},ExpressionUUID->"b22c316e-c1cf-4952-bde8-\
+395e9385accb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 2", "Subsection",
+ CellChangeTimes->{{3.93611773439472*^9, 
+  3.936117736000472*^9}},ExpressionUUID->"e9d6cf14-29dc-4cc8-95c1-\
+87bdd4675891"],
+
+Cell["\<\
+Create a 3D plot of any weather data of your choosing with date range of no \
+more than 7 days.\
+\>", "Text",
+ CellChangeTimes->{{3.936117877593155*^9, 
+  3.936117917520198*^9}},ExpressionUUID->"e982916a-4c0c-4606-bd3a-\
+14bb346582a6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 3", "Subsection",
+ CellChangeTimes->{{3.936117924873384*^9, 
+  3.936117927187726*^9}},ExpressionUUID->"ff198e9c-e8ea-4cc3-af14-\
+338ee5bda1a6"],
+
+Cell["\<\
+What command returns the current location in coordinate points (i.e longitude \
+and latitude)?\
+\>", "Text",
+ CellChangeTimes->{{3.9361179316849737`*^9, 
+  3.936117982056541*^9}},ExpressionUUID->"14974729-0308-496f-b3ce-\
+be20452591b9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 4", "Subsection",
+ CellChangeTimes->{{3.9361180018615294`*^9, 
+  3.9361180035221853`*^9}},ExpressionUUID->"061e2a99-afdd-48e5-9be9-\
+fe84a7707568"],
+
+Cell[TextData[{
+ "Using the ",
+ StyleBox["Table",
+  FontWeight->"Bold"],
+ " command and ",
+ StyleBox["WeatherData",
+  FontWeight->"Bold"],
+ " command, can you create a table of wind speed values ranging from Tuesday \
+Sept 24, 2024 - Tuesday Oct 1, 2024?"
+}], "Text",
+ CellChangeTimes->{{3.93611800933525*^9, 3.936118054258315*^9}, {
+  3.936118090610408*^9, 
+  3.9361181097298107`*^9}},ExpressionUUID->"68b3fa29-7640-4f91-8cad-\
+03dd953db1b6"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1440, 771},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification:>1.5 Inherited,
+FrontEndVersion->"14.1 for Mac OS X x86 (64-bit) (July 16, 2024)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"943becf0-b7a7-44ad-bd1d-488f6d35640c"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 456, 7, 144, "Title",ExpressionUUID->"8c77f513-d0ac-4dd8-b635-4261c69eb8ce"],
+Cell[1035, 31, 240, 5, 102, "Subtitle",ExpressionUUID->"1dedad2e-d259-4254-9ab2-b10154d91939"],
+Cell[CellGroupData[{
+Cell[1300, 40, 499, 8, 99, "Section",ExpressionUUID->"4f69533c-6a1b-43dd-822d-95838bbc6375"],
+Cell[1802, 50, 368, 7, 87, "Text",ExpressionUUID->"e0c52b61-be23-48f9-87ee-bcf1c8bd7cbf"],
+Cell[2173, 59, 1060, 15, 122, "Text",ExpressionUUID->"3194f94f-b772-4248-8af9-bd4d3f0f72e0"],
+Cell[3236, 76, 281, 5, 52, "Text",ExpressionUUID->"3a2f6a23-d9be-46c0-b742-e7e115a43f5d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3554, 86, 392, 6, 99, "Section",ExpressionUUID->"d2743d3e-5d4b-4551-91a3-449514aa3155"],
+Cell[3949, 94, 1921, 40, 330, "Text",ExpressionUUID->"8f17a2d5-6d8c-4411-a3fd-f868a62c8288"],
+Cell[CellGroupData[{
+Cell[5895, 138, 759, 12, 44, "Input",ExpressionUUID->"185f2733-9b2d-44c4-a8e9-46cd327c702b"],
+Cell[6657, 152, 246, 5, 50, "Output",ExpressionUUID->"c59f3e59-e189-4016-a1b0-11c8ba7eb3b9"]
+}, Open  ]],
+Cell[6918, 160, 338, 7, 83, "Text",ExpressionUUID->"92db3625-e266-4eb7-9dc5-e5b7f9a299ce"],
+Cell[7259, 169, 1230, 28, 247, "Text",ExpressionUUID->"5535ebdc-6fb6-43a2-bbca-9e8c27583de6"],
+Cell[8492, 199, 566, 11, 44, "Input",ExpressionUUID->"61c208b5-0968-429c-b6a0-c83bf397e531"],
+Cell[9061, 212, 1567, 39, 141, "Text",ExpressionUUID->"3bd6b21a-ac91-433d-a232-8cf234f86962"],
+Cell[10631, 253, 456, 8, 44, "Input",ExpressionUUID->"10b3747b-7236-4c08-bec7-8dd8c4556c40"],
+Cell[11090, 263, 509, 9, 83, "Text",ExpressionUUID->"16d5d8f0-9f01-45ad-80a1-697540edde3c"],
+Cell[CellGroupData[{
+Cell[11624, 276, 438, 7, 75, "Subsubsection",ExpressionUUID->"96a45cc5-0005-4792-8720-1241d15f66c7"],
+Cell[12065, 285, 1358, 26, 91, "Text",ExpressionUUID->"4f22f574-68c4-4bd6-a928-661cfbe0f954"],
+Cell[13426, 313, 552, 10, 50, "Text",ExpressionUUID->"9822574d-2ef0-4696-a476-c4c8d774d974"],
+Cell[13981, 325, 901, 17, 44, "Input",ExpressionUUID->"8bfe6109-a64b-4f11-8b5d-044402282be6"],
+Cell[14885, 344, 1512, 31, 260, "Text",ExpressionUUID->"303c0220-9322-467e-8cb9-9620bad5323b"],
+Cell[16400, 377, 16269, 386, 363, "Output",ExpressionUUID->"32d937bd-dab8-4abc-96c5-964338e8a9ef"],
+Cell[32672, 765, 396, 8, 83, "Text",ExpressionUUID->"b6632e2d-adc4-4b7b-916f-3cbe22778d3b"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[33117, 779, 327, 5, 99, "Section",ExpressionUUID->"1bb109fb-646f-47c2-ad64-2e2efe785e27"],
+Cell[33447, 786, 1511, 43, 226, "Text",ExpressionUUID->"30832357-ecc7-486d-8aca-0bdd9f13a75a"],
+Cell[34961, 831, 938, 16, 44, "Input",ExpressionUUID->"73603fa0-e1b6-4e0d-9691-dfb1480ac8d7"],
+Cell[35902, 849, 635, 11, 83, "Text",ExpressionUUID->"4a222da7-ed13-44e9-afc9-cbeddf7f1d23"],
+Cell[CellGroupData[{
+Cell[36562, 864, 160, 3, 65, "Subsubsection",ExpressionUUID->"3a40df9f-6c6a-43d0-bb9c-3d95b9ebaf76"],
+Cell[36725, 869, 689, 15, 50, "Text",ExpressionUUID->"6d99523c-f01f-49db-9153-d2e330dee6bd"],
+Cell[37417, 886, 999, 20, 83, "Text",ExpressionUUID->"c8f429f4-b294-4b13-a67d-c2e5e0ca35de"],
+Cell[CellGroupData[{
+Cell[38441, 910, 796, 17, 44, "Input",ExpressionUUID->"ce61946e-b503-4b17-8b36-8a73d582a2ce"],
+Cell[39240, 929, 17130, 406, 371, "Output",ExpressionUUID->"b45203a9-f114-4036-99c6-693a6b0991db"]
+}, Open  ]],
+Cell[56385, 1338, 587, 10, 116, "Text",ExpressionUUID->"0d6a5135-57f1-49ff-a6fa-eb09969d41ad"],
+Cell[56975, 1350, 410, 6, 44, "Input",ExpressionUUID->"d6846fd6-7ed4-4e8e-82f9-c5d99949ea34"],
+Cell[57388, 1358, 567, 10, 116, "Text",ExpressionUUID->"f5efdd0d-6c50-4cc2-a25e-8fb131f09726"],
+Cell[57958, 1370, 331, 5, 44, "Input",ExpressionUUID->"90c55c6a-c913-4b7b-bb98-0a4cde9ccda1"],
+Cell[58292, 1377, 345, 6, 52, "Text",ExpressionUUID->"3f4898ea-f60c-4768-b21f-16b80172a342"],
+Cell[58640, 1385, 643, 12, 44, "Input",ExpressionUUID->"0c79ff9c-2c71-47d5-a487-cebcedc23682"],
+Cell[59286, 1399, 373, 7, 52, "Text",ExpressionUUID->"5bf58688-2a1d-4fb0-bd8b-269fd625a74b"],
+Cell[59662, 1408, 291, 5, 44, "Input",ExpressionUUID->"96aae666-c37c-4340-b10a-d8a2f1b5a79b"],
+Cell[59956, 1415, 528, 10, 116, "Text",ExpressionUUID->"2d40a57a-faa0-483a-a4b4-35c076397ea1"],
+Cell[60487, 1427, 398, 8, 83, "Text",ExpressionUUID->"8ecdaaff-38f5-414e-9521-318dd6cacd83"],
+Cell[60888, 1437, 841, 16, 44, "Input",ExpressionUUID->"a4b02527-a480-4a67-8511-58c607a48817"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[61778, 1459, 424, 6, 99, "Section",ExpressionUUID->"6db62080-1699-4445-a30a-4beabbee1343"],
+Cell[62205, 1467, 474, 8, 83, "Text",ExpressionUUID->"6b3631e2-63f5-45ab-a8ae-88e6d11f43dd"],
+Cell[CellGroupData[{
+Cell[62704, 1479, 247, 4, 44, "Input",ExpressionUUID->"a2c7cf53-a9b9-44b6-826f-1596f17f18fd"],
+Cell[62954, 1485, 13249, 271, 93, "Output",ExpressionUUID->"a453dda3-7d23-4f11-bfa3-8efc49fade7d"]
+}, Open  ]],
+Cell[76218, 1759, 267, 6, 50, "Text",ExpressionUUID->"21566ea1-e297-45ca-99ca-687beed3c995"],
+Cell[CellGroupData[{
+Cell[76510, 1769, 455, 8, 44, "Input",ExpressionUUID->"842a7b60-6853-494c-a7ac-5c79173f0aba"],
+Cell[76968, 1779, 14038, 327, 357, "Output",ExpressionUUID->"f917dc09-1ee3-4f30-b5d2-ddcb20abf3b0"]
+}, Open  ]],
+Cell[91021, 2109, 911, 16, 214, "Text",ExpressionUUID->"9ddc4523-ea54-4f84-b58c-f3ef21ef23fe"],
+Cell[CellGroupData[{
+Cell[91957, 2129, 157, 3, 65, "Subsubsection",ExpressionUUID->"b28fb8e1-0b43-4c42-b56c-e016671753fe"],
+Cell[92117, 2134, 513, 15, 83, "Text",ExpressionUUID->"94d2ae06-055e-4a56-9e09-acee8286ba16"],
+Cell[92633, 2151, 563, 10, 116, "Text",ExpressionUUID->"7dd8b0fa-d5df-40ad-94ff-41c51e6e929c"],
+Cell[CellGroupData[{
+Cell[93221, 2165, 863, 17, 74, "Input",ExpressionUUID->"33323335-3ced-4d6b-853f-f260a82e157a"],
+Cell[94087, 2184, 13906, 322, 388, "Output",ExpressionUUID->"654e82f3-f795-4a56-bb7a-9eb09f00cf0e"]
+}, Open  ]],
+Cell[108008, 2509, 387, 9, 83, "Text",ExpressionUUID->"f1c5e1d1-1f86-4e9a-81e9-95cab7623a01"],
+Cell[108398, 2520, 734, 16, 83, "Text",ExpressionUUID->"78398661-acc6-4171-b664-cdcb7f95ffb0"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[109181, 2542, 328, 5, 99, "Section",ExpressionUUID->"b228e9ae-de27-4290-870e-434642f66255"],
+Cell[109512, 2549, 910, 15, 214, "Text",ExpressionUUID->"37d46c77-ade4-4b2c-be20-59512e323868"],
+Cell[CellGroupData[{
+Cell[110447, 2568, 172, 3, 79, "Subsection",ExpressionUUID->"4e15a9b7-7361-4fe3-9f8a-3143a36c339f"],
+Cell[110622, 2573, 245, 4, 50, "Text",ExpressionUUID->"11ba5d05-dec9-41e4-be99-37dc6a75f5a6"],
+Cell[CellGroupData[{
+Cell[110892, 2581, 207, 3, 44, "Input",ExpressionUUID->"469ffa0c-298a-47b2-b722-d4af090f2050"],
+Cell[111102, 2586, 644, 17, 52, "Output",ExpressionUUID->"19a7f4da-036b-49b3-b3ca-46aca13914fd"]
+}, Open  ]],
+Cell[111761, 2606, 1311, 28, 214, "Text",ExpressionUUID->"300ff980-c9d7-4b2e-8da9-8e3734227e55"],
+Cell[113075, 2636, 321, 5, 44, "Input",ExpressionUUID->"b1bb9059-d2b4-4152-9af5-6f0f0e3fc187"],
+Cell[113399, 2643, 290, 6, 83, "Text",ExpressionUUID->"86cee395-b4fa-4886-abcd-80f80004f618"],
+Cell[CellGroupData[{
+Cell[113714, 2653, 210, 3, 44, "Input",ExpressionUUID->"997f33a8-c208-4570-b1d7-5a41310774b3"],
+Cell[113927, 2658, 242, 5, 53, "Output",ExpressionUUID->"6788d5e3-b298-4b46-9539-e51ff59aaf19"]
+}, Open  ]],
+Cell[114184, 2666, 200, 3, 50, "Text",ExpressionUUID->"2d3107ba-c228-4096-9490-17de972c19fd"],
+Cell[114387, 2671, 274, 5, 44, "Input",ExpressionUUID->"5515ab7d-6d52-4e62-958b-f0683dbbbb34"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[114710, 2682, 213, 4, 99, "Section",ExpressionUUID->"1dfaa6f9-5b57-40c0-b308-7b325f0f59c4"],
+Cell[114926, 2688, 765, 14, 181, "Text",ExpressionUUID->"f161a2e5-d820-4f85-bcd2-4ab2a2ab5796"],
+Cell[CellGroupData[{
+Cell[115716, 2706, 211, 4, 79, "Subsection",ExpressionUUID->"2c488024-076c-46d7-afff-fb04aac5aeea"],
+Cell[115930, 2712, 263, 6, 50, "Text",ExpressionUUID->"b22c316e-c1cf-4952-bde8-395e9385accb"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[116230, 2723, 157, 3, 79, "Subsection",ExpressionUUID->"e9d6cf14-29dc-4cc8-95c1-87bdd4675891"],
+Cell[116390, 2728, 245, 6, 50, "Text",ExpressionUUID->"e982916a-4c0c-4606-bd3a-14bb346582a6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[116672, 2739, 158, 3, 79, "Subsection",ExpressionUUID->"ff198e9c-e8ea-4cc3-af14-338ee5bda1a6"],
+Cell[116833, 2744, 246, 6, 50, "Text",ExpressionUUID->"14974729-0308-496f-b3ce-be20452591b9"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[117116, 2755, 162, 3, 79, "Subsection",ExpressionUUID->"061e2a99-afdd-48e5-9be9-fe84a7707568"],
+Cell[117281, 2760, 443, 13, 83, "Text",ExpressionUUID->"68b3fa29-7640-4f91-8cad-03dd953db1b6"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
